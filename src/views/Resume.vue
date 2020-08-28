@@ -13,22 +13,21 @@
         <ul>
           <li>
             <span class="info-title">User Name: </span>
-            <span class="info-content">NiuYuean</span>
+            <span class="info-content">{{username}}</span>
           </li>
           <li>Created Time:</li>
           <li>Stars Number: </li>
           <li>Followoers: </li>
           <li>website</li>
-          <li>{{stars}}</li>
         </ul>
       </div>
     </div>
     <hr style="width:74%" />
     <!--  -->
-    <div class="section" style="height: 200px;line-height: 200px;">
-      <div class="section-left">个人主页</div>
-      <div class="section-right">
-        <a href="https://github.com/NiuYuean">https://github.com/NiuYuean</a>
+    <div v-if="GetStats(name) != null" class="section" style="height: 200px;line-height: 200px;">
+      <div v-if="GetStats(name) != null" class="section-left">个人主页</div>
+      <div v-if="GetStats(name) != null" class="section-right">
+        <a href="https://github.com/NiuYuean">{GetStats(name)}</a>
       </div>
     </div>
     <hr style="width:74%" />
@@ -60,7 +59,7 @@ export default {
   },
   mounted() {
     this.username = this.$route.query.username
-    this.getStars()
+    this.GetStats()
     this.initCharts()
   },
   methods: {
@@ -116,10 +115,12 @@ export default {
         ]
       })
     },
-    getStars() {
-      var url = ''
+    GetStats(stats) {
+      var url = 'https://api.github.com/users/' + this.username
       this.$http.get(url).then((result) => {
-        this.stars = result.data
+        // this.stars = result.stats
+        console.log(result.data.name)
+        return result.data.name
       })
     }
   }
