@@ -24,13 +24,14 @@
     </div>
     <hr style="width:74%" />
     <!--  -->
-    <div v-if="GetStats(name) != null" class="section" style="height: 200px;line-height: 200px;">
-      <div v-if="GetStats(name) != null" class="section-left">个人主页</div>
-      <div v-if="GetStats(name) != null" class="section-right">
-        <a href="https://github.com/NiuYuean">{GetStats(name)}</a>
+    <div v-if="profile.blog != ''" class="section" style="height: 200px;line-height: 200px;">
+      <div v-if="profile.blog != ''" class="section-left">个人主页</div>
+      <div v-if="profile.blog != ''" class="section-right">
+        <a v-bind:href="profile.blog">{{profile.blog}}</a>
       </div>
     </div>
-    <hr style="width:74%" />
+    <hr v-if="profile.blog != ''" style="width:74%" />
+
     <div class="section" style="height: 400px;line-height: 400px;">
       <div class="section-left">Languages</div>
       <div class="section-right">
@@ -54,7 +55,7 @@ export default {
       username: '',
       src: '',
       circleUrl: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
-      stars: ''
+      profile: ''
     }
   },
   mounted() {
@@ -118,9 +119,7 @@ export default {
     GetStats(stats) {
       var url = 'https://api.github.com/users/' + this.username
       this.$http.get(url).then((result) => {
-        // this.stars = result.stats
-        console.log(result.data.name)
-        return result.data.name
+        this.profile = result.data
       })
     }
   }
