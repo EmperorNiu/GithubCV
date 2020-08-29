@@ -158,7 +158,7 @@ export default {
         // console.log(this.page)
       })
       for (var $i = 1; $i <= this.page; $i++) {
-        url = 'https://api.github.com/users/' + this.username + '/repos' + '?per_page=100' + '&page=' + $i + '?access_token=1b8b2c8a425445bff6c0a9449bac0b43a5e94fb0'
+        url = 'https://api.github.com/users/' + this.username + '/repos' + '?per_page=100' + '&page=' + $i + '?access_token='
         // console.log(url)
         this.$http.get(url).then((result) => {
           this.repo = result.data
@@ -166,7 +166,7 @@ export default {
           // console.log(length)
           for (var $j = 0; $j < length; $j++) {
             if (this.repo[$j].language != null && this.repo[$j].fork === false) {
-              url = 'https://api.github.com/repos/' + this.repo[$j].full_name + '/languages?access_token=1b8b2c8a425445bff6c0a9449bac0b43a5e94fb0'
+              url = 'https://api.github.com/repos/' + this.repo[$j].full_name + '/languages?access_token='
               // console.log(url)
               this.$http.get(url).then((result) => {
                 // console.log(result.data)
