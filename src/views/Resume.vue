@@ -1,7 +1,7 @@
 <template>
   <div style="text-align: center;">
     <!-- 标题 -->
-    <h1>{{username}} Resume</h1>
+    <h1>{{username}}'s Resume</h1>
     <hr style="width:74%" />
     <!-- 基本介绍 -->
     <div class="section" style="height: 300px">
@@ -11,14 +11,39 @@
       </div>
       <div class="info-list">
         <ul>
-          <li>
-            <span class="info-title">User Name: </span>
-            <span class="info-content">{{username}}</span>
+          <li v-if="profile.name != null" >
+            <span v-if="profile.name != null" class="info-title">User Name: </span>
+            <span v-if="profile.name != null" class="info-content">{{profile.name}}</span>
           </li>
-          <li>Created Time:</li>
+          <li>
+            <span class="info-title">Created Time:</span>
+            <span class="info-content">{{profile.created_at}}</span>
+          </li>
+          <li>
+            <span class="info-title">Update Time:</span>
+            <span class="info-content">{{profile.updated_at}}</span>
+          </li>
           <li>Stars Number: </li>
-          <li>Followoers: </li>
-          <li>website</li>
+          <li>
+            <span class="info-title">Followers: </span>
+            <span class="info-content">{{profile.followers}}</span>
+          </li>
+          <li v-if="profile.company != null" >
+            <span v-if="profile.company != null" class="info-title">Company: </span>
+            <span v-if="profile.company != null" class="info-content">{{profile.company}}</span>
+          </li>
+          <li v-if="profile.location != null" >
+            <span v-if="profile.location != null" class="info-title">Location: </span>
+            <span v-if="profile.location != null" class="info-content">{{profile.location}}</span>
+          </li>
+          <li v-if="profile.twitter_username != null" >
+            <span v-if="profile.twitter_username != null" class="info-title">Twitter Username: </span>
+            <span v-if="profile.twitter_username != null" class="info-content">{{profile.twitter_username}}</span>
+          </li>
+          <li v-if="profile.bio != null" >
+            <span v-if="profile.bio != null" class="info-title">Bio: </span>
+            <span v-if="profile.bio != null" class="info-content">{{profile.bio}}</span>
+          </li>
         </ul>
       </div>
     </div>
