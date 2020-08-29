@@ -81,7 +81,7 @@ export default {
       src: '',
       circleUrl: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
       profile: '',
-      page: 2,
+      page: '',
       repo: '',
       languages: {}
     }
@@ -156,35 +156,35 @@ export default {
       this.$http.get(url).then((result) => {
         this.page = Math.floor(this.profile.public_repos / 100) + 1
         // console.log(this.page)
-      })
-      for (var $i = 1; $i <= this.page; $i++) {
-        url = 'https://api.github.com/users/' + this.username + '/repos' + '?per_page=100' + '&page=' + $i + '?access_token='
-        // console.log(url)
-        this.$http.get(url).then((result) => {
-          this.repo = result.data
-          var length = result.data.length
-          // console.log(length)
-          for (var $j = 0; $j < length; $j++) {
-            if (this.repo[$j].language != null && this.repo[$j].fork === false) {
-              url = 'https://api.github.com/repos/' + this.repo[$j].full_name + '/languages?access_token='
-              // console.log(url)
-              this.$http.get(url).then((result) => {
-                // console.log(result.data)
-                for (var lang in result.data) {
-                  if (lang in this.languages) {
-                    this.languages[lang] = this.languages[lang] + result.data[lang]
-                  } else {
-                    this.languages[lang] = result.data[lang]
+        for (var $i = 1; $i <= this.page; $i++) {
+          url = 'https://api.github.com/users/' + this.username + '/repos' + '?per_page=100' + '&page=' + $i + '?access_token='
+          // console.log(url)
+          this.$http.get(url).then((result) => {
+            this.repo = result.data
+            var length = result.data.length
+            // console.log(length)
+            for (var $j = 0; $j < length; $j++) {
+              if (this.repo[$j].language != null && this.repo[$j].fork === false) {
+                url = 'https://api.github.com/repos/' + this.repo[$j].full_name + '/languages?access_token='
+                // console.log(url)
+                this.$http.get(url).then((result) => {
+                  // console.log(result.data)
+                  for (var lang in result.data) {
+                    if (lang in this.languages) {
+                      this.languages[lang] = this.languages[lang] + result.data[lang]
+                    } else {
+                      this.languages[lang] = result.data[lang]
+                    }
+                    // console.log(lang)
                   }
-                  // console.log(lang)
-                }
-              })
+                })
+              }
             }
-          }
-          console.log(this.languages)
-        })
-      }
-      console.log(this.languages)
+            console.log(this.languages)
+          })
+        }
+        console.log(this.languages)
+      })
     }
   }
 }
