@@ -146,18 +146,18 @@ export default {
       })
     },
     GetStats() {
-      var url = 'https://api.github.com/users/' + this.username
+      var url = 'https://api.github.com/users/' + this.username + '?access_token='
       this.$http.get(url).then((result) => {
         this.profile = result.data
       })
     },
     GetLang() {
-      var url = 'https://api.github.com/users/' + this.username
+      var url = 'https://api.github.com/users/' + this.username + '?access_token='
       this.$http.get(url).then((result) => {
-        this.page = Math.floor(this.profile.public_repos / 100) + 1
+        this.page = Math.floor(result.data.public_repos / 100) + 1
         // console.log(this.page)
         for (var $i = 1; $i <= this.page; $i++) {
-          url = 'https://api.github.com/users/' + this.username + '/repos' + '?per_page=100' + '&page=' + $i + '?access_token='
+          url = 'https://api.github.com/users/' + this.username + '/repos' + '?per_page=100' + '&page=' + $i + '&access_token='
           // console.log(url)
           this.$http.get(url).then((result) => {
             this.repo = result.data
@@ -180,7 +180,7 @@ export default {
                 })
               }
             }
-            console.log(this.languages)
+            // console.log(this.languages)
           })
         }
         console.log(this.languages)
