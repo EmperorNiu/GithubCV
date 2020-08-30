@@ -150,18 +150,18 @@ export default {
       })
     },
     GetStats() {
-      var url = 'https://api.github.com/users/' + this.username + '?access_token='
+      var url = 'https://api.github.com/users/' + this.username
       this.$http.get(url).then((result) => {
         this.profile = result.data
       })
     },
     GetLang() {
-      var url = 'https://api.github.com/users/' + this.username + '?access_token='
+      var url = 'https://api.github.com/users/' + this.username
       this.$http.get(url).then((result) => {
         this.page = Math.floor(result.data.public_repos / 100) + 1
         // console.log(this.page)
         for (var $i = 1; $i <= this.page; $i++) {
-          url = 'https://api.github.com/users/' + this.username + '/repos' + '?per_page=100' + '&page=' + $i + '&access_token='
+          url = 'https://api.github.com/users/' + this.username + '/repos' + '?per_page=100' + '&page=' + $i
           // console.log(url)
           this.$http.get(url).then((result) => {
             this.repo = result.data
@@ -170,7 +170,7 @@ export default {
             for (var $j = 0; $j < length; $j++) {
               if (this.repo[$j].language != null && this.repo[$j].fork === false) {
                 this.ReposDetails.push({ name: this.repo[$j].name, forks: this.repo[$j].forks_count, stars: this.repo[$j].stargazers_count })
-                url = 'https://api.github.com/repos/' + this.repo[$j].full_name + '/languages?access_token='
+                url = 'https://api.github.com/repos/' + this.repo[$j].full_name + '/languages'
                 // console.log(url)
                 this.$http.get(url).then((result) => {
                   // console.log(result.data)
@@ -193,13 +193,13 @@ export default {
       })
     },
     GetOrg() {
-      var url = 'https://api.github.com/users/' + this.username + '/orgs' + '?access_token='
+      var url = 'https://api.github.com/users/' + this.username + '/orgs'
       this.$http.get(url).then((result) => {
         var length = result.data.length
         this.orgs = result.data
         // console.log(length)
         for (var $j = 0; $j < length; $j++) {
-          url = 'https://api.github.com/orgs/' + this.orgs[$j].login + '?access_token='
+          url = 'https://api.github.com/orgs/' + this.orgs[$j].login
           // console.log(url)
           this.$http.get(url).then((NameResult) => {
             if (NameResult.data.name && NameResult.data.name != null) {
