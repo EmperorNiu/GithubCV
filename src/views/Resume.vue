@@ -80,13 +80,13 @@ export default {
       username: '',
       src: '',
       circleUrl: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
-      profile: '',
-      page: '',
-      repo: '',
-      languages: {},
-      orgs: '',
-      OrgList: [],
-      OrgIconList: []
+      page: '', // 用于同步
+      repo: '', // 用于同步
+      orgs: '', // 用于同步
+      profile: '', // 用户基本信息
+      languages: {}, // 用户代码使用编程语言信息 形式（语言名 代码量）
+      OrgList: [], // 用户组织信息 形式（组织图标，组织名）
+      ReposDetails: []
     }
   },
   mounted() {
@@ -169,6 +169,7 @@ export default {
             // console.log(length)
             for (var $j = 0; $j < length; $j++) {
               if (this.repo[$j].language != null && this.repo[$j].fork === false) {
+                this.ReposDetails.push({ name: this.repo[$j].name, forks: this.repo[$j].forks_count, stars: this.repo[$j].stargazers_count })
                 url = 'https://api.github.com/repos/' + this.repo[$j].full_name + '/languages?access_token='
                 // console.log(url)
                 this.$http.get(url).then((result) => {
@@ -187,6 +188,7 @@ export default {
             // console.log(this.languages)
           })
         }
+        console.log(this.ReposDetails)
         console.log(this.languages)
       })
     },
@@ -200,17 +202,15 @@ export default {
           url = 'https://api.github.com/orgs/' + this.orgs[$j].login + '?access_token='
           // console.log(url)
           this.$http.get(url).then((NameResult) => {
-            this.OrgIconList.push(NameResult.data.avatar_url)
             if (NameResult.data.name && NameResult.data.name != null) {
-              this.OrgList.push(NameResult.data.name)
+              this.OrgList.push({ name: NameResult.data.name, icon: NameResult.data.avatar_url })
             } else {
-              this.OrgList.push(NameResult.data.login)
+              this.OrgList.push({ name: NameResult.data.login, icon: NameResult.data.avatar_url })
             }
           })
         }
       })
       console.log(this.OrgList)
-      console.log(this.OrgIconList)
     }
   }
 }
