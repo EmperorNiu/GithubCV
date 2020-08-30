@@ -83,7 +83,10 @@ export default {
       profile: '',
       page: '',
       repo: '',
-      languages: {}
+      languages: {},
+      orgs: '',
+      OrgList: [],
+      OrgIconList: []
     }
   },
   mounted() {
@@ -91,6 +94,7 @@ export default {
     this.GetStats()
     this.initCharts()
     this.GetLang()
+    this.GetOrg()
   },
   methods: {
     initCharts() {
@@ -185,6 +189,28 @@ export default {
         }
         console.log(this.languages)
       })
+    },
+    GetOrg() {
+      var url = 'https://api.github.com/users/' + this.username + '/orgs' + '?access_token='
+      this.$http.get(url).then((result) => {
+        var length = result.data.length
+        this.orgs = result.data
+        // console.log(length)
+        for (var $j = 0; $j < length; $j++) {
+          url = 'https://api.github.com/orgs/' + this.orgs[$j].login + '?access_token='
+          // console.log(url)
+          this.$http.get(url).then((NameResult) => {
+            this.OrgIconList.push(NameResult.data.avatar_url)
+            if (NameResult.data.name && NameResult.data.name != null) {
+              this.OrgList.push(NameResult.data.name)
+            } else {
+              this.OrgList.push(NameResult.data.login)
+            }
+          })
+        }
+      })
+      console.log(this.OrgList)
+      console.log(this.OrgIconList)
     }
   }
 }
