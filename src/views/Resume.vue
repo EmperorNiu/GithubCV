@@ -86,7 +86,7 @@ export default {
       profile: '', // 用户基本信息
       languages: {}, // 用户代码使用编程语言信息 形式（语言名 代码量）
       OrgList: [], // 用户组织信息 形式（组织图标，组织名）
-      ReposDetails: []
+      ReposDetails: [] // 仓库概述 形式（name fork star）
     }
   },
   mounted() {
