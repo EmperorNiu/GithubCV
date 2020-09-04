@@ -83,7 +83,7 @@ export default {
       page: '', // 用于同步
       repo: '', // 用于同步
       orgs: '', // 用于同步
-      profile: '', // 用户基本信息
+      profile: '', // 用户基本信息 avatar_url：头像 login：账户名 name：昵称 其他上面做了简单呈现
       languages: {}, // 用户代码使用编程语言信息 形式（语言名 代码量）
       OrgList: [], // 用户组织信息 形式（组织图标，组织名）
       ReposDetails: [] // 仓库概述 形式（name fork star）
