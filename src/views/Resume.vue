@@ -1,16 +1,16 @@
 <template>
-  <div style="text-align: center;">
+  <div class="resume-container">
     <!-- 标题 -->
-    <h1>{{username}}'s Resume</h1>
+    <h1 style="text-align: center;">{{username}}'s Resume</h1>
     <hr style="width:74%" />
-    <!-- 基本介绍 -->
-    <div class="section" style="height: 300px">
+    <!-- 头像+基本介绍 -->
+    <div class="section" style="height: 400px">
       <!-- <div class="section-left">Basic Information</div> -->
       <div class="avatar">
-         <el-avatar :size="120" :src="circleUrl" class="avatar-img"></el-avatar>
+         <el-avatar :size="150" :src="circleUrl" class="avatar-img"></el-avatar>
       </div>
       <div class="info-list">
-        <ul>
+        <ul style="list-style:none">
           <li v-if="profile.name != null" >
             <span v-if="profile.name != null" class="info-title">User Name: </span>
             <span v-if="profile.name != null" class="info-content">{{profile.name}}</span>
@@ -23,7 +23,7 @@
             <span class="info-title">Update Time:</span>
             <span class="info-content">{{profile.updated_at}}</span>
           </li>
-          <li>Stars Number: </li>
+          <!-- <li>Stars Number: </li> -->
           <li>
             <span class="info-title">Followers: </span>
             <span class="info-content">{{profile.followers}}</span>
@@ -152,7 +152,9 @@ export default {
     GetStats() {
       var url = 'https://api.github.com/users/' + this.username
       this.$http.get(url).then((result) => {
+        console.log(result)
         this.profile = result.data
+        this.circleUrl = this.profile.avatar_url
       })
     },
     GetLang() {
@@ -217,11 +219,15 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.block {
-  text-align: center;
-  height: 300px;
-  width: 300px;
+.resume-container {
+  height: auto;
+  // background-color: rgb(189, 207, 223);
 }
+// .block {
+//   text-align: center;
+//   height: 300px;
+//   width: 300px;
+// }
 .section {
   display: flex;
   flex-direction: row;
@@ -255,7 +261,18 @@ export default {
   margin-left: 20px;
   margin-top: 50px;
   li {
-    margin-bottom: 10px;
+    // size: 10pxs;
+    margin-bottom: 14px;
   }
+}
+.info-title {
+  width: 150px;
+  display:inline-block;
+  text-align: right;
+  margin-right: 25px;
+}
+.info-content {
+  width: 450px;
+  display:inline-block;
 }
 </style>

@@ -13,7 +13,7 @@ Vue.config.productionTip = false
 axios.defaults.baseURL = 'http://localhost:8002/api'
 Vue.prototype.$http = axios
 axios.defaults.headers.post['Content-Type'] = 'application/json'
-axios.defaults.headers.get.Authorization = 'token xxx' // xxx为你的个人GitHub token
+// axios.defaults.headers.get.Authorization = 'token xxx' // xxx为你的个人GitHub token
 
 new Vue({
   router,
