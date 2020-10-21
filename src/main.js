@@ -14,7 +14,7 @@ Vue.prototype.$echarts = echarts
 axios.defaults.baseURL = 'http://localhost:5000'
 Vue.prototype.$http = axios
 axios.defaults.headers.post['Content-Type'] = 'application/json'
-// axios.defaults.headers.get.Authorization = 'token e23134a6f2b5d404c4bac031a971edccecfff88a' // xxx为你的个人GitHub token
+// axios.defaults.headers.get.Authorization = 'token xxx' // xxx为你的个人GitHub token
 
 new Vue({
   router,
