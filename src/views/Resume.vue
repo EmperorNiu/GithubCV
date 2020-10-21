@@ -48,7 +48,7 @@
       </div>
     </div>
     <hr style="width:74%" />
-    <!--  -->
+    <!-- 主页 -->
     <div v-if="profile.blog != ''" class="section" style="height: 200px;line-height: 200px;">
       <div v-if="profile.blog != ''" class="section-left">个人主页</div>
       <div v-if="profile.blog != ''" class="section-right">
@@ -56,16 +56,17 @@
       </div>
     </div>
     <hr v-if="profile.blog != ''" style="width:74%" />
-
-    <div class="section" style="height: 400px;line-height: 400px;">
+    <!-- 各语言占比 -->
+    <div class="section" style="height: 500px;line-height: 500px;">
       <div class="section-left">Languages</div>
       <div class="section-right">
-        <div id="my_chart" style="height:400px;"></div>
+        <div ref="language_pie" style="height:500px;"></div>
       </div>
     </div>
     <hr style="width:74%" />
+    <!-- 项目展示 -->
     <div class="section" style="height: 400px;line-height: 400px;">
-      <div class="section-left" style="font-size: 20px;">Popular Repositories</div>
+      <div class="section-left" style="font-size: 20px;">Repositories</div>
       <div class="section-right">
       </div>
     </div>
@@ -79,36 +80,55 @@ export default {
     return {
       username: '',
       src: '',
-      circleUrl: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
+      circleUrl: '',
       page: '', // 用于同步
-      repo: '', // 用于同步
+      repos: '', // 用于同步
       orgs: '', // 用于同步
       profile: '', // 用户基本信息
       languages: {}, // 用户代码使用编程语言信息 形式（语言名 代码量）
       OrgList: [], // 用户组织信息 形式（组织图标，组织名）
-      ReposDetails: [] // 仓库概述 形式（name fork star）
+      ReposDetails: [], // 仓库概述 形式（name fork star）
+      languagesType: []
     }
   },
-  mounted() {
+  // 获取数据
+  created() {
     this.username = this.$route.query.username
-    this.GetStats()
-    this.initCharts()
-    this.GetLang()
-    this.GetOrg()
+    // this.GetRepos()
+    // this.GetStats()
+    // this.GetOrg()
+  },
+  // 渲染页面
+  mounted() {
+    this.initDataAndChart()
+    // this.initDataAndChart()
+    // this.mytest()
   },
   methods: {
-    initCharts() {
-      var echarts = require('echarts/dist/echarts.common.js')
-      // 引入柱状图
-      // require('echarts/lib/chart/bar')
-      // 引入提示框和标题组件
-      // require('echarts/lib/component/tooltip')
-      // require('echarts/lib/component/title')
-      this.chart = echarts.init(document.getElementById('my_chart'))
-      this.setOptions()
+    initDataAndChart() {
+      var chart = this.$echarts.init(this.$refs.language_pie)
+      // chart.showLoading()
+      this.$http.get('repos/languages?username=' + this.username).then((result) => {
+        var languageData = result.data
+        // chart.hideLoadinig()
+        console.log(languageData)
+        this.drawChart(chart, languageData)
+      })
     },
-    setOptions() {
-      this.chart.setOption({
+    mytest() {
+      console.log(this.tmp)
+      // console.log(this.)
+      // console.log(this.languages["Go"])
+      // var length = JSON.stringify(this.languages)
+      // console.log(length)
+    },
+    drawChart(chart, languageData) {
+      // 准备数据
+      var option = {
+        title: {
+          text: '所有项目编程语言分布',
+          left: 'center'
+        },
         tooltip: {
           trigger: 'item',
           formatter: '{a} <br/>{b}: {c} ({d}%)'
@@ -116,7 +136,7 @@ export default {
         legend: {
           orient: 'vertical',
           left: 10,
-          data: ['Python', 'JavaScript', 'C++', 'Golang', 'JupyterNotebook']
+          data: languageData.keyList
         },
         series: [
           {
@@ -138,13 +158,52 @@ export default {
             labelLine: {
               show: false
             },
-            data: [
-              { value: 335, name: 'Python' },
-              { value: 310, name: 'JavaScript' },
-              { value: 234, name: 'C++' },
-              { value: 135, name: 'Golang' },
-              { value: 1548, name: 'JupyterNotebook' }
-            ]
+            data: languageData.response
+          }
+        ]
+      }
+      chart.setOption(option)
+    },
+    setLanguagePieOptions() {
+      // var dataValue = []
+      // for (var i = 0; i < this.languagesType.length; i++) {
+      //   dataValue.push({
+      //     value: this.languages[this.languagesType[i]],
+      //     name: this.languagesType[i]
+      //   })
+      // }
+      // console.log(dataValue)
+      this.chart.setOption({
+        tooltip: {
+          trigger: 'item',
+          formatter: '{a} <br/>{b}: {c} ({d}%)'
+        },
+        legend: {
+          orient: 'vertical',
+          left: 10,
+          data: this.languagesType
+        },
+        series: [
+          {
+            name: 'languages',
+            type: 'pie',
+            radius: ['50%', '70%'],
+            avoidLabelOverlap: false,
+            label: {
+              show: false,
+              position: 'center'
+            },
+            emphasis: {
+              label: {
+                show: true,
+                fontSize: '25',
+                fontWeight: 'bold'
+              }
+            },
+            labelLine: {
+              show: false
+            },
+            data: this.languages
           }
         ]
       })
@@ -152,46 +211,51 @@ export default {
     GetStats() {
       var url = 'https://api.github.com/users/' + this.username
       this.$http.get(url).then((result) => {
-        console.log(result)
+        // console.log(result)
         this.profile = result.data
         this.circleUrl = this.profile.avatar_url
       })
     },
-    GetLang() {
+    GetRepos() {
       var url = 'https://api.github.com/users/' + this.username
       this.$http.get(url).then((result) => {
         this.page = Math.floor(result.data.public_repos / 100) + 1
-        // console.log(this.page)
+        // var dataValue = []
         for (var $i = 1; $i <= this.page; $i++) {
           url = 'https://api.github.com/users/' + this.username + '/repos' + '?per_page=100' + '&page=' + $i
-          // console.log(url)
           this.$http.get(url).then((result) => {
-            this.repo = result.data
+            // this.repos = result.data
+            var repos = result.data
             var length = result.data.length
-            // console.log(length)
+            var languages = []
+            // var languageNum = 0
             for (var $j = 0; $j < length; $j++) {
-              if (this.repo[$j].language != null && this.repo[$j].fork === false) {
-                this.ReposDetails.push({ name: this.repo[$j].name, forks: this.repo[$j].forks_count, stars: this.repo[$j].stargazers_count })
-                url = 'https://api.github.com/repos/' + this.repo[$j].full_name + '/languages'
-                // console.log(url)
+              if (repos[$j].language != null && repos[$j].fork === false) {
+                var ctime = new Date(repos[$j].created_at)
+                var utime = new Date(repos[$j].pushed_at)
+                this.ReposDetails.push({
+                  name: repos[$j].name,
+                  language: repos[$j].language,
+                  forks: repos[$j].forks_count,
+                  stars: repos[$j].stargazers_count,
+                  html: repos[$j].html_url,
+                  created_at: ctime.getFullYear().toString() + '.' + (ctime.getMonth() + 1).toString(),
+                  updated_at: utime.getFullYear().toString() + '.' + (utime.getMonth() + 1).toString()
+                })
+                url = 'https://api.github.com/repos/' + repos[$j].full_name + '/languages'
                 this.$http.get(url).then((result) => {
-                  // console.log(result.data)
                   for (var lang in result.data) {
                     if (lang in this.languages) {
-                      this.languages[lang] = this.languages[lang] + result.data[lang]
+                      languages[lang] = languages[lang] + result.data[lang]
                     } else {
-                      this.languages[lang] = result.data[lang]
+                      languages[lang] = result.data[lang]
                     }
-                    // console.log(lang)
                   }
                 })
               }
             }
-            // console.log(this.languages)
           })
         }
-        console.log(this.ReposDetails)
-        console.log(this.languages)
       })
     },
     GetOrg() {
@@ -213,6 +277,21 @@ export default {
         }
       })
       console.log(this.OrgList)
+    },
+    GetLanguages(url) {
+      var languages = {}
+      // var languageNum = 0
+      this.$http.get(url).then((result) => {
+        for (var lang in result.data) {
+          if (lang in this.languages) {
+            languages[lang] = languages[lang] + result.data[lang]
+          } else {
+            languages[lang] = result.data[lang]
+            // languageNum += 1
+          }
+        }
+      })
+      return languages
     }
   }
 }
