@@ -9,74 +9,61 @@
             class="avatar-img"
           ></el-avatar>
         </div>
-        <div class="info-list">
-          <ul style="list-style: none">
-            <li v-if="profile.login != null">
-              <span v-if="profile.login != null" class="info-title"
-                >Nick Name:
-              </span>
-              <span v-if="profile.login != null" class="info-content">{{
-                profile.login
-              }}</span>
-            </li>
-            <li v-if="profile.name != null">
-              <span v-if="profile.name != null" class="info-title"
-                >User Name:
-              </span>
+        <div class="info-container">
+          <div class="info-list">
+            <div class="info-item">
+              <span class="info-title">Nick Name: </span>
+              <span class="info-content">{{profile.login}}</span>
+            </div>
+            <div v-if="profile.name != null" class="info-item">
+              <span v-if="profile.name != null" class="info-title">User Name:</span>
               <span v-if="profile.name != null" class="info-content">{{
-                profile.name
-              }}</span>
-            </li>
-            <li>
+                  profile.name
+                }}</span>
+            </div>
+            <div class="info-item">
               <span class="info-title">Created Time:</span>
               <span class="info-content">{{ profile.created_at }}</span>
-            </li>
-            <li>
+            </div>
+            <div class="info-item">
               <span class="info-title">Update Time:</span>
               <span class="info-content">{{ profile.updated_at }}</span>
-            </li>
-            <!-- <li>Stars Number: </li> -->
-            <li>
+            </div>
+            <div class="info-item">
               <span class="info-title">Followers: </span>
               <span class="info-content">{{ profile.followers }}</span>
-            </li>
-            <li>
+            </div>
+            <div class="info-item">
               <span class="info-title">Following: </span>
               <span class="info-content">{{ profile.following }}</span>
-            </li>
-            <li v-if="profile.company != null">
-              <span v-if="profile.company != null" class="info-title"
-                >Company:
-              </span>
+            </div>
+            <div class="info-item">
+              <span v-if="profile.company != null" class="info-title">Company: </span>
               <span v-if="profile.company != null" class="info-content">{{
-                profile.company
-              }}</span>
-            </li>
-            <li v-if="profile.location != null">
-              <span v-if="profile.location != null" class="info-title"
-                >Location:
-              </span>
+                  profile.company
+                }}</span>
+            </div>
+            <div class="info-item">
+            <span v-if="profile.location != null" class="info-title"
+            >Location:
+            </span>
               <span v-if="profile.location != null" class="info-content">{{
-                profile.location
-              }}</span>
-            </li>
-            <li v-if="profile.twitter_username != null">
+                  profile.location }}</span>
+            </div>
+            <div class="info-item" v-if="profile.twitter_username != null">
               <span v-if="profile.twitter_username != null" class="info-title"
                 >Twitter Username:
               </span>
               <span
                 v-if="profile.twitter_username != null"
                 class="info-content"
-                >{{ profile.twitter_username }}</span
-              >
-            </li>
-            <li v-if="profile.bio != null">
+              >{{ profile.twitter_username }}</span>
+            </div>
+            <div class="info-item" v-if="profile.bio != null">
               <span v-if="profile.bio != null" class="info-title">Bio: </span>
-              <span v-if="profile.bio != null" class="info-content">{{
-                profile.bio
-              }}</span>
-            </li>
-          </ul>
+              <span v-if="profile.bio != null" class="info-content">{{ profile.bio }}</span>
+            </div>
+          </div>
         </div>
       </div>
     </el-card>
@@ -119,19 +106,35 @@ export default {
   height: 520px;
 }
 .avatar {
-  // margin: 10px 10px 10px 60px;
   width: 30%;
-  align-self: center;
+  height: 500px;
+  //align-self: center;
+}
+.avatar-img {
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  //margin-left: -210px;
+  line-height: 500px;
+  //margin-top: -210px;
+}
+.info-container {
+  width: 60%;
+  height: 500px;
 }
 .info-list {
-  width: 60%;
+  height: auto;
   align-self: center;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
-// .avatar-img {
-//   position: absolute;
-//   left: 50%;
-//   top: 50%;
-//   margin-left: -60px;
-//   margin-top: -60px;
-// }
+.info-item {
+  width: 300px;
+  height: 40px;
+  padding: 5px;
+}
 </style>
