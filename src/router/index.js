@@ -5,6 +5,8 @@ import Home from '../views/Home.vue'
 import Resume from '../views/Resume.vue'
 import Resume2 from '../views/Resume2.vue'
 import Profile from '../components/resume/Profile.vue'
+import Languages from '../components/resume/Languages.vue'
+import Repository from '../components/resume/Repository.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -30,6 +32,14 @@ const routes = [
       {
         path: '/profile',
         component: Profile
+      },
+      {
+        path: '/languages',
+        component: Languages
+      },
+      {
+        path: '/repository',
+        component: Repository
       }
     ]
   },
