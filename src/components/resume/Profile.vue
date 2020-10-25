@@ -22,11 +22,11 @@
                 }}</span>
             </div>
             <div class="info-item">
-              <span class="info-title">Created Time:</span>
+              <span class="info-title">Created Time: </span>
               <span class="info-content">{{ profile.created_at }}</span>
             </div>
             <div class="info-item">
-              <span class="info-title">Update Time:</span>
+              <span class="info-title">Update Time: </span>
               <span class="info-content">{{ profile.updated_at }}</span>
             </div>
             <div class="info-item">
@@ -45,15 +45,13 @@
             </div>
             <div class="info-item">
             <span v-if="profile.location != null" class="info-title"
-            >Location:
-            </span>
+            >Location: </span>
               <span v-if="profile.location != null" class="info-content">{{
                   profile.location }}</span>
             </div>
             <div class="info-item" v-if="profile.twitter_username != null">
               <span v-if="profile.twitter_username != null" class="info-title"
-                >Twitter Username:
-              </span>
+                >Twitter Username: </span>
               <span
                 v-if="profile.twitter_username != null"
                 class="info-content"
@@ -62,6 +60,14 @@
             <div class="info-item" v-if="profile.bio != null">
               <span v-if="profile.bio != null" class="info-title">Bio: </span>
               <span v-if="profile.bio != null" class="info-content">{{ profile.bio }}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-title">Github: </span>
+              <span class="info-content">{{ profile.html_url }}</span>
+            </div>
+            <div class="info-item" v-if="profile.blog != null">
+              <span v-if="profile.blog != null" class="info-title">Website: </span>
+              <span v-if="profile.blog != null" class="info-content">{{ profile.blog }}</span>
             </div>
           </div>
         </div>
@@ -80,11 +86,17 @@ export default {
   },
   methods: {
     GetStats() {
-      var url = 'https://api.github.com/users/' + this.username
-      this.$http.get(url).then((result) => {
-        console.log(result)
-        this.profile = result.data
-      })
+      if (sessionStorage.getItem('profile')) {
+        this.profile = JSON.parse(sessionStorage.getItem('profile'))
+        // console.log(JSON.parse(sessionStorage.getItem('profile')))
+      } else {
+        var url = 'https://api.github.com/users/' + this.username
+        this.$http.get(url).then((result) => {
+          // console.log(result)
+          this.profile = result.data
+          sessionStorage.setItem('profile', JSON.stringify(result.data))
+        })
+      }
     }
   },
   created() {
@@ -94,19 +106,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.card {
-  height: 560px;
-  width: 84%;
-  margin-top: 20px;
-  margin-left: 8%;
-}
-.card-container {
-  display: flex;
-  flex-direction: row;
-  height: 520px;
-}
+@import '../../assets/css/globalResume.css';
 .avatar {
-  width: 30%;
+  width: 32%;
   height: 500px;
   //align-self: center;
 }
@@ -120,6 +122,7 @@ export default {
   //margin-top: -210px;
 }
 .info-container {
+  margin-left: 6%;
   width: 60%;
   height: 500px;
 }
@@ -133,8 +136,12 @@ export default {
   transform: translateY(-50%);
 }
 .info-item {
-  width: 300px;
+  width: 350px;
   height: 40px;
   padding: 5px;
+}
+.info-title{
+  font-weight: bold;
+  color: rgb(18, 0, 100);
 }
 </style>

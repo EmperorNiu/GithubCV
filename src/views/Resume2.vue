@@ -2,10 +2,13 @@
   <div class="resume-container">
     <!-- 标题 -->
     <div class="title">{{ username }}'s Resume</div>
+    <div class="subtitle">{{ subtitle[changeActive] }}</div>
     <!-- <h1 style="text-align: center;">avoidLabelOverlap 's Resume</h1> -->
     <!-- <profile></profile> -->
     <div class="content">
-      <router-view></router-view>
+      <vue-page-transition name="fade-in-up">
+        <router-view/>
+      </vue-page-transition>
     </div>
     <!-- <el-carousel height="685px" direction="vertical" :autoplay="false">
       <el-carousel-item v-for="item in 3" :key="item">
@@ -27,6 +30,7 @@ export default {
       repos: '', // 用于同步
       profile: '', // 用户基本信息
       changeActive: 0,
+      subtitle: ['Profile', 'Language Percent', 'Repository', 'About'],
       navList: [
         {
           id: 0,
@@ -39,6 +43,10 @@ export default {
         {
           id: 2,
           index: '/repository'
+        },
+        {
+          id: 3,
+          index: '/about'
         }
       ]
     }
@@ -92,12 +100,23 @@ export default {
 
 .title {
   width: 100%;
-  height: 80px;
+  height: 75px;
   font-size: 25px;
+  font-weight: bold;
   text-align: center;
-  line-height: 80px;
+  line-height: 75px;
   padding-top: 10px;
-  padding-bottom: 10px;
+  // padding-bottom: 10px;
+}
+.subtitle {
+  width: 100%;
+  height: 56px;
+  color: #475669;
+  font-size: 20px;
+  text-align: center;
+  line-height: 56px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .content {

@@ -7,6 +7,7 @@ import Resume2 from '../views/Resume2.vue'
 import Profile from '../components/resume/Profile.vue'
 import Languages from '../components/resume/Languages.vue'
 import Repository from '../components/resume/Repository.vue'
+import About from '../components/resume/About.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -40,16 +41,12 @@ const routes = [
       {
         path: '/repository',
         component: Repository
+      },
+      {
+        path: '/about',
+        component: About
       }
     ]
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   }
 ]
 

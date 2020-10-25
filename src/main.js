@@ -4,11 +4,13 @@ import router from './router'
 // Element-ui
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import VuePageTransition from 'vue-page-transition'
 // Echarts
 import echarts from 'echarts'
 import axios from 'axios'
 
 Vue.use(ElementUI)
+Vue.use(VuePageTransition)
 Vue.config.productionTip = false
 Vue.prototype.$echarts = echarts
 axios.defaults.baseURL = 'http://localhost:5000'

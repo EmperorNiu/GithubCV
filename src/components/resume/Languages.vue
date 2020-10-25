@@ -2,51 +2,10 @@
   <div>
     <el-card class="card">
       <div class="card-container">
-        <div class="avatar">
-          <div>hello</div>
-        </div>
-        <div class="info-container">
-          <div class="info-list">
-            <div class="info-item">
-              <span class="info-title">Nick Name: </span>
-              <span class="info-content">{{profile.login}}</span>
-            </div>
-            <div v-if="profile.name != null" class="info-item">
-              <span v-if="profile.name != null" class="info-title">User Name:</span>
-              <span v-if="profile.name != null" class="info-content">{{
-                  profile.name
-                }}</span>
-            </div>
-            <div class="info-item">
-              <span class="info-title">Created Time:</span>
-              <span class="info-content">{{ profile.created_at }}</span>
-            </div>
-            <div class="info-item">
-              <span class="info-title">Update Time:</span>
-              <span class="info-content">{{ profile.updated_at }}</span>
-            </div>
-            <div class="info-item">
-              <span class="info-title">Followers: </span>
-              <span class="info-content">{{ profile.followers }}</span>
-            </div>
-            <div class="info-item">
-              <span class="info-title">Following: </span>
-              <span class="info-content">{{ profile.following }}</span>
-            </div>
-            <div class="info-item">
-              <span v-if="profile.company != null" class="info-title">Company: </span>
-              <span v-if="profile.company != null" class="info-content">{{
-                  profile.company
-                }}</span>
-            </div>
-            <div class="info-item">
-            <span v-if="profile.location != null" class="info-title"
-            >Location:
-            </span>
-              <span v-if="profile.location != null" class="info-content">{{
-                  profile.location }}</span>
-            </div>
-          </div>
+        <!-- 各语言占比 -->
+        <div class="section-left">Languages</div>
+        <div class="section-right">
+          <div ref="language_pie" style="height:480px;"></div>
         </div>
       </div>
     </el-card>
@@ -57,67 +16,86 @@
 export default {
   data() {
     return {
-      username: 'EmperorNiu',
-      profile: {}
+      username: 'EmperorNiu'
     }
   },
   methods: {
-    GetStats() {
-      var url = 'https://api.github.com/users/' + this.username
-      this.$http.get(url).then((result) => {
-        console.log(result)
-        this.profile = result.data
-      })
+    initDataAndChart() {
+      var chart = this.$echarts.init(this.$refs.language_pie)
+      // chart.showLoading()
+      if (sessionStorage.getItem('languages')) {
+        var languageData = JSON.parse(sessionStorage.getItem('languages'))
+        this.drawChart(chart, languageData)
+      } else {
+        this.$http.get('repos/languages?username=' + this.username).then((result) => {
+          var languageData = result.data
+          // this.languageData = result.data
+          sessionStorage.setItem('languages', JSON.stringify(result.data))
+          // chart.hideLoadinig()
+          // console.log(languageData)
+          this.drawChart(chart, languageData)
+        })
+      }
+    },
+    drawChart(chart, languageData) {
+      // 准备数据
+      var option = {
+        title: {
+          text: '所有项目编程语言分布',
+          left: 'center'
+        },
+        tooltip: {
+          trigger: 'item',
+          formatter: '{a} <br/>{b}: {c} ({d}%)'
+        },
+        legend: {
+          orient: 'vertical',
+          left: 10,
+          data: languageData.keyList
+        },
+        series: [
+          {
+            name: 'languages',
+            type: 'pie',
+            radius: ['50%', '70%'],
+            avoidLabelOverlap: false,
+            label: {
+              show: false,
+              position: 'center'
+            },
+            emphasis: {
+              label: {
+                show: true,
+                fontSize: '25',
+                fontWeight: 'bold'
+              }
+            },
+            labelLine: {
+              show: false
+            },
+            data: languageData.response
+          }
+        ]
+      }
+      chart.setOption(option)
     }
   },
-  created() {
-    this.GetStats()
+  mounted() {
+    // this.initDataAndChart()
   }
 }
 </script>
 
 <style lang="less" scoped>
-.card {
-  height: 560px;
-  width: 84%;
-  margin-top: 20px;
-  margin-left: 8%;
+@import '../../assets/css/globalResume.css';
+.section-left {
+  width: 20%;
+  font-size: 25px;
+  font-weight: 5px;
 }
-.card-container {
-  display: flex;
-  flex-direction: row;
-  height: 520px;
-}
-.avatar {
-  width: 30%;
-  height: 500px;
-  //align-self: center;
-}
-.avatar-img {
-  position: relative;
-  left: 50%;
-  top: 50%;
-  transform: translateY(-50%) translateX(-50%);
-  //margin-left: -210px;
-  line-height: 500px;
-  //margin-top: -210px;
-}
-.info-container {
-  width: 60%;
-  height: 500px;
-}
-.info-list {
-  height: auto;
-  align-self: center;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-}
-.info-item {
-  width: 300px;
-  height: 40px;
-  padding: 5px;
+.section-right {
+  padding-left: 0;
+  width: 75%;
+  text-align: left;
 }
 </style>

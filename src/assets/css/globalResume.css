@@ -1,0 +1,22 @@
+.card {
+  height: 520px;
+  width: 82%;
+  margin-top: 20px;
+  margin-left: 9%;
+}
+.card-container {
+  display: flex;
+  flex-direction: row;
+  height: 500px;
+}
+.section-left {
+  width: 30%;
+  font-size: 25px;
+  font-weight: 5px;
+  line-height: 500px;
+}
+.section-right {
+  padding-left: 0;
+  width: 65%;
+  text-align: left;
+}
