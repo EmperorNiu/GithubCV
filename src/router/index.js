@@ -7,6 +7,8 @@ import Resume2 from '../views/Resume2.vue'
 import Profile from '../components/resume/Profile.vue'
 import Languages from '../components/resume/Languages.vue'
 import Repository from '../components/resume/Repository.vue'
+import Contributions from '../components/resume/Contributions.vue'
+import Relationship from '../components/resume/Relationship.vue'
 import About from '../components/resume/About.vue'
 Vue.use(VueRouter)
 
@@ -41,6 +43,14 @@ const routes = [
       {
         path: '/repository',
         component: Repository
+      },
+      {
+        path: '/contributions',
+        component: Contributions
+      },
+      {
+        path: '/relationship',
+        component: Relationship
       },
       {
         path: '/about',

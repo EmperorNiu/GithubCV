@@ -30,7 +30,7 @@ export default {
       repos: '', // 用于同步
       profile: '', // 用户基本信息
       changeActive: 0,
-      subtitle: ['Profile', 'Language Percent', 'Repository', 'About'],
+      subtitle: ['Profile', 'Language Percent', 'Repository', 'Contributions', 'Relationship', 'About'],
       navList: [
         {
           id: 0,
@@ -46,6 +46,14 @@ export default {
         },
         {
           id: 3,
+          index: '/contributions'
+        },
+        {
+          id: 4,
+          index: '/relationship'
+        },
+        {
+          id: 5,
           index: '/about'
         }
       ]
@@ -94,27 +102,28 @@ export default {
   height: 100%;
   width: 100%;
   display: flex;
-  flex-direction: column;;
+  flex-direction: column;
+  background-image: url("../assets/blue-snow.png");
   // background-color: rgb(189, 207, 223);
 }
 
 .title {
   width: 100%;
-  height: 75px;
+  height: 70px;
   font-size: 25px;
   font-weight: bold;
   text-align: center;
-  line-height: 75px;
-  padding-top: 10px;
+  line-height: 70px;
+  // padding-top: 10px;
   // padding-bottom: 10px;
 }
 .subtitle {
   width: 100%;
-  height: 56px;
+  height: 50px;
   color: #475669;
   font-size: 20px;
   text-align: center;
-  line-height: 56px;
+  line-height: 50px;
   padding-top: 8px;
   padding-bottom: 8px;
 }

@@ -3,6 +3,7 @@
   width: 82%;
   margin-top: 20px;
   margin-left: 9%;
+  background-image: url("../so-white.png");
 }
 .card-container {
   display: flex;
