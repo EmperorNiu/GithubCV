@@ -2,45 +2,45 @@
   <div>
     <el-card class="card">
       <div class="card-container">
-        <el-carousel type="card" indicator-position="outside" class="carousel" height="430px">
-          <el-carousel-item v-for="item in 4" :key="item" :autoplay="false" trigger="click">
+        <el-carousel type="card" indicator-position="outside" class="carousel" height="430px" @change="carouselChange">
+          <el-carousel-item v-for="item in repos.length" :key="item" :autoplay="false" trigger="click">
             <div class="title">
               <el-button type="text" style="font-size:25px;" @click="detail">
-                <span>{{repos[item].name}}</span><i class="el-icon-view el-icon--right"></i>
+                <span>{{repos[item-1].name}}</span><i class="el-icon-view el-icon--right"></i>
               </el-button>
             </div>
             <div class="info-list">
               <div class="info-item">
                 <span class="info-title">Project Maintenance Time:  </span>
                 <span class="info-content"
-                  >{{ repos[item].created_at }} - {{ repos[item].updated_at }}</span
+                  >{{ repos[item-1].created_at }} - {{ repos[item-1].updated_at }}</span
                 >
               </div>
-              <div class="info-item" v-if="repos[item].description != null && repos[item].description != ''">
+              <div class="info-item" v-if="repos[item-1].description != null && repos[item-1].description != ''">
                 <span class="info-title">Description:  </span>
-                <span class="info-content" style="font-size: 16px;">{{ repos[item].description }}</span>
+                <span class="info-content" style="font-size: 16px;">{{ repos[item-1].description }}</span>
               </div>
               <div class="info-item">
                 <span class="info-title">Main Languages:  </span>
-                <span class="info-content">{{ repos[item].language }}</span>
+                <span class="info-content">{{ repos[item-1].language }}</span>
               </div>
               <div class="info-item">
                 <span class="info-title">Stars Num:  </span>
                 <span class="info-content">{{
-                  repos[item].stars
+                  repos[item-1].stars
                 }}</span>
               </div>
               <div class="info-item">
                 <span class="info-title">Forks Num:  </span>
-                <span class="info-content">{{ repos[item].forks }}</span>
+                <span class="info-content">{{ repos[item-1].forks }}</span>
               </div>
-              <div class="info-item" v-if="repos[item].homepage != null && repos[item].homepage != ''">
+              <div class="info-item" v-if="repos[item-1].homepage != null && repos[item-1].homepage != ''">
                 <span class="info-title">Homepage:  </span>
-                <span class="info-content">{{ repos[item].homepage }}</span>
+                <span class="info-content">{{ repos[item-1].homepage }}</span>
               </div>
               <div class="info-item">
                 <span class="info-title">Link:  </span>
-                <span class="info-content">{{ repos[item].html }}</span>
+                <span class="info-content">{{ repos[item-1].html }}</span>
               </div>
             </div>
           </el-carousel-item>
@@ -86,7 +86,8 @@ export default {
   data() {
     return {
       username: 'EmperorNiu',
-      repos: []
+      repos: [],
+      active: 0
     }
   },
   methods: {
@@ -135,9 +136,12 @@ export default {
       this.$router.push({
         path: '/reposDetail',
         query: {
-          username: this.username
+          reposIndex: this.active
         }
       })
+    },
+    carouselChange(key1, key2) {
+      this.active = key1
     }
   },
   created() {

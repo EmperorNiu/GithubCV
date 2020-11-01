@@ -56,12 +56,13 @@ const routes = [
       {
         path: '/about',
         component: About
-      },
-      {
-        path: '/reposDetail',
-        component: ReposDetail
       }
     ]
+  },
+  {
+    path: '/reposDetail',
+    name: 'ReposDetail',
+    component: ReposDetail
   }
 ]
 
