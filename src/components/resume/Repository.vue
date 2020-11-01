@@ -2,7 +2,50 @@
   <div>
     <el-card class="card">
       <div class="card-container">
-        <div class="section-left">
+        <el-carousel type="card" indicator-position="outside" class="carousel" height="430px">
+          <el-carousel-item v-for="item in 4" :key="item" :autoplay="false" trigger="click">
+            <div class="title">
+              <el-button type="text" style="font-size:25px;" @click="detail">
+                <span>{{repos[item].name}}</span><i class="el-icon-view el-icon--right"></i>
+              </el-button>
+            </div>
+            <div class="info-list">
+              <div class="info-item">
+                <span class="info-title">Project Maintenance Time:  </span>
+                <span class="info-content"
+                  >{{ repos[item].created_at }} - {{ repos[item].updated_at }}</span
+                >
+              </div>
+              <div class="info-item" v-if="repos[item].description != null && repos[item].description != ''">
+                <span class="info-title">Description:  </span>
+                <span class="info-content" style="font-size: 16px;">{{ repos[item].description }}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-title">Main Languages:  </span>
+                <span class="info-content">{{ repos[item].language }}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-title">Stars Num:  </span>
+                <span class="info-content">{{
+                  repos[item].stars
+                }}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-title">Forks Num:  </span>
+                <span class="info-content">{{ repos[item].forks }}</span>
+              </div>
+              <div class="info-item" v-if="repos[item].homepage != null && repos[item].homepage != ''">
+                <span class="info-title">Homepage:  </span>
+                <span class="info-content">{{ repos[item].homepage }}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-title">Link:  </span>
+                <span class="info-content">{{ repos[item].html }}</span>
+              </div>
+            </div>
+          </el-carousel-item>
+        </el-carousel>
+        <!-- <div class="section-left">
           {{ repos[0].name }}
         </div>
         <div class="section-right">
@@ -32,7 +75,7 @@
               <span class="info-content">{{ repos[0].html }}</span>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </el-card>
   </div>
@@ -71,6 +114,8 @@ export default {
                 forks: repos[$j].forks_count,
                 stars: repos[$j].stargazers_count,
                 html: repos[$j].html_url,
+                description: repos[$j].description,
+                homepage: repos[$j].homepage,
                 created_at:
                   ctime.getFullYear().toString() +
                   '.' +
@@ -82,41 +127,72 @@ export default {
               })
             }
           }
-          console.log(this.repos)
-          // sessionStorage.setItem('repos', JSON.stringify(this.repos))
+          sessionStorage.setItem('repos', JSON.stringify(this.repos))
         })
       }
+    },
+    detail() {
+      this.$router.push({
+        path: '/reposDetail',
+        query: {
+          username: this.username
+        }
+      })
     }
   },
   created() {
-    this.getAllRepos()
-  },
+    if (sessionStorage.getItem('repos')) {
+      this.repos = JSON.parse(sessionStorage.getItem('repos'))
+    } else {
+      this.getAllRepos()
+    }
+  }
 }
 </script>
 
 <style lang="less" scoped>
 @import '../../assets/css/globalResume.css';
-.info-container {
-  margin-left: 6%;
-  width: 60%;
-  height: 500px;
+.title {
+  width: 100%;
+  text-align: center;
+  font-size: 30px;
 }
 .info-list {
   height: auto;
   align-self: center;
   display: flex;
   flex-direction: column;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
+  margin-top: 25px;
+  padding-left: 20px;
+  // position: relative;
+  // top: 50%;
+  // transform: translateY(-50%);
 }
 .info-item {
-  width: 350px;
-  height: 40px;
+  width: 600px;
+  height: auto;
   padding: 5px;
 }
 .info-title {
   font-weight: bold;
   color: rgb(18, 0, 100);
+}
+.carousel{
+  width: 100%;
+}
+.el-carousel__item h3 {
+  color: #475669;
+  font-size: 18px;
+  opacity: 0.75;
+  line-height: 430px;
+  margin: 0;
+}
+
+.el-carousel__item:nth-child(2n) {
+  background-color: #dbe9ff;
+}
+
+.el-carousel__item:nth-child(2n+1) {
+  background-color: #d3dce6;
 }
 </style>

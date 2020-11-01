@@ -81,7 +81,7 @@ export default {
     }
   },
   mounted() {
-    // this.initDataAndChart()
+    this.initDataAndChart()
   }
 }
 </script>
