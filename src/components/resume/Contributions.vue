@@ -2,12 +2,30 @@
   <div>
     <el-card class="card">
       <div class="card-container">
-        <div class="section-left">
-          Contributions
-        </div>
-        <div class="section-right">
-          TNothing
-        </div>
+        <el-table
+          :data="contribution"
+          border
+          max-height="450"
+          style="width: 80%; margin-top: 15px"
+        >
+          <el-table-column prop="repos" label="repository name">
+          </el-table-column>
+          <el-table-column prop="value" label="commits number"  width="180">
+          </el-table-column>
+        </el-table>
+        <!-- <div class="info-container">
+          <div></div>
+          <div class="info-list">
+            <div
+              class="info-item"
+              v-for="item in contribution"
+              :key="item.repos"
+            >
+              <span class="info-title">{{ item.repos }}: </span>
+              <span class="info-content">{{ item.value }}</span>
+            </div>
+          </div>
+        </div> -->
       </div>
     </el-card>
   </div>
@@ -18,7 +36,28 @@ export default {
   data() {
     return {
       username: 'EmperorNiu',
-      he: '11'
+      sum: '11',
+      contribution: []
+    }
+  },
+  methods: {
+    getContribution() {
+      var url = '/user/contribution?username=' + this.username
+      this.$http.get(url).then((result) => {
+        var data = result.data
+        this.sum = data.total_count
+        this.contribution = data.contribution
+        sessionStorage.setItem('contribution', JSON.stringify(result.data))
+      })
+    }
+  },
+  created() {
+    if (sessionStorage.getItem('contribution')) {
+      var data = JSON.parse(sessionStorage.getItem('contribution'))
+      this.contribution = data.contribution
+      this.sum = data.total_count
+    } else {
+      this.getContribution()
     }
   }
 }
@@ -26,14 +65,29 @@ export default {
 
 <style lang="less" scoped>
 @import '../../assets/css/globalResume.css';
-.section-left {
-  width: 20%;
-  font-size: 25px;
-  font-weight: 5px;
+.info-container {
+  margin-left: 6%;
+  width: 60%;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
 }
-.section-right {
-  padding-left: 0;
-  width: 75%;
-  text-align: left;
+.info-list {
+  height: auto;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  // position: relative;
+  // top: 50%;
+  // transform: translateY(-50%);
+}
+.info-item {
+  width: 450px;
+  height: 35px;
+  padding: 5px;
+}
+.info-title {
+  font-weight: bold;
+  color: rgb(18, 0, 100);
 }
 </style>
