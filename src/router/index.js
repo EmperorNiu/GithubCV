@@ -10,6 +10,7 @@ import Repository from '../components/resume/Repository.vue'
 import Contributions from '../components/resume/Contributions.vue'
 import Relationship from '../components/resume/Relationship.vue'
 import About from '../components/resume/About.vue'
+import ReposDetail from '../components/resume/ReposDetail.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -57,6 +58,11 @@ const routes = [
         component: About
       }
     ]
+  },
+  {
+    path: '/reposDetail',
+    name: 'ReposDetail',
+    component: ReposDetail
   }
 ]
 
