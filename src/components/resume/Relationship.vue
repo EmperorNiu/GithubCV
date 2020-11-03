@@ -23,16 +23,18 @@
 export default {
   data() {
     return {
-      username: 'EmperorNiu',
+      username: 'defunkt',
       he: '11'
     }
   },
   mounted() {
-    this.initDataAndChart()
+    // this.initDataAndChart()
+    this.DrawRelation()
   },
   methods: {
-    initDataAndChart() {
-      var chart = this.$echarts.init(this.$refs.relationship_graph)
+    initDataAndChart(chart, relationData) {
+      // console.log(relationData.response)
+      // var chart = this.$echarts.init(this.$refs.relationship_graph)
       // console.log(123)
       // var option = {
       //   title: {
@@ -134,6 +136,18 @@ export default {
             label: {
               // 关系对象上的标签
               normal: {
+                formatter(v) {
+                  let text = v.name
+                  let size = v.data.symbolSize
+                  size = Math.round(size / 10)
+                  console.log(size)
+                  if (text.length <= size) {
+                    return text
+                  } else if (text.length > size) {
+                    text = `${text.slice(0, size)}`
+                    return text
+                  }
+                },
                 show: true, // 是否显示标签
                 position: 'inside', // 标签位置:'top''left''right''bottom''inside''insideLeft''insideRight''insideTop''insideBottom''insideTopLeft''insideBottomLeft''insideTopRight''insideBottomRight'
                 textStyle: {
@@ -155,102 +169,47 @@ export default {
                 }
               }
             },
-            data: [
-              {
-                name: '某IT男',
-                draggable: true, // 节点是否可拖拽，只在使用力引导布局的时候有用。
-                symbolSize: [80, 80], // 关系图节点标记的大小，可以设置成诸如 10 这样单一的数字，也可以用数组分开表示宽和高，例如 [20, 10] 表示标记宽为20，高为10。
-                itemStyle: {
-                  color: '#000' // 关系图节点标记的颜色
-                },
-                category: '收入支出分析' // 数据项所在类目的 index。
-              },
-              {
-                name: '工资\n6000',
-                draggable: true,
-                symbolSize: [60, 60],
-                itemStyle: {
-                  color: '#0000ff'
-                },
-                category: '收入+'
-              },
-              {
-                name: '租房\n600',
-                draggable: true,
-                symbolSize: [60, 60],
-                itemStyle: {
-                  color: '#ff0000'
-                },
-                category: '支出-'
-              },
-              {
-                name: '生活开销\n1400',
-                draggable: true,
-                symbolSize: [60, 60],
-                itemStyle: {
-                  color: '#ff0000'
-                },
-                category: '支出-'
-              },
-              {
-                name: '储蓄\n4000',
-                draggable: true,
-                symbolSize: [60, 60],
-                itemStyle: {
-                  color: '#00ff00'
-                },
-                category: '剩余='
-              }
-            ],
-            categories: [
-              {
-                // 节点分类的类目，可选。如果节点有分类的话可以通过 data[i].category 指定每个节点的类目，类目的样式会被应用到节点样式上。图例也可以基于categories名字展现和筛选。
-                name: '收入支出分析' // 类目名称，用于和 legend 对应以及格式化 tooltip 的内容。
-              },
-              {
-                name: '收入+'
-              },
-              {
-                name: '支出-'
-              },
-              {
-                name: '支出-'
-              },
-              {
-                name: '剩余='
-              }
-            ],
-            links: [
-              {
-                // 节点间的关系数据
-                target: '工资\n6000',
-                source: '某IT男',
-                category: '收入+' // 关系对象连接线上的标签内容
-              },
-              {
-                target: '租房\n600',
-                source: '某IT男',
-                category: '支出-'
-              },
-              {
-                target: '生活开销\n1400',
-                source: '某IT男',
-                category: '支出-'
-              },
-              {
-                target: '储蓄\n4000',
-                source: '某IT男',
-                category: '剩余='
-              }
-            ]
+            data: relationData.data,
+            // categories: [
+            //   {
+            //     // 节点分类的类目，可选。如果节点有分类的话可以通过 data[i].category 指定每个节点的类目，类目的样式会被应用到节点样式上。图例也可以基于categories名字展现和筛选。
+            //     name: "收入支出分析" // 类目名称，用于和 legend 对应以及格式化 tooltip 的内容。
+            //   },
+            //   {
+            //     name: "收入+"
+            //   },
+            //   {
+            //     name: "支出-"
+            //   },
+            //   {
+            //     name: "支出-"
+            //   },
+            //   {
+            //     name: "剩余="
+            //   }
+            // ],
+            links: relationData.link
           }
         ],
-
         animationEasingUpdate: 'quinticInOut', // 数据更新动画的缓动效果。[ default: cubicOut ]    "quinticInOut"
         animationDurationUpdate: 100 // 数据更新动画的时长。[ default: 300 ]
       }
       // 使用刚指定的配置项和数据显示图表
       chart.setOption(option)
+    },
+    DrawRelation() {
+      var chart = this.$echarts.init(this.$refs.relationship_graph)
+      if (sessionStorage.getItem('relationship')) {
+        var relationData = JSON.parse(sessionStorage.getItem('relationship'))
+        this.initDataAndChart(chart, relationData)
+      } else {
+        this.$http.get('user/contribute/' + this.username).then((result) => {
+          var relationData = result.data
+          sessionStorage.setItem('relationship', JSON.stringify(result.data))
+          console.log(relationData)
+          this.initDataAndChart(chart, relationData)
+        })
+      }
     }
   }
 }
