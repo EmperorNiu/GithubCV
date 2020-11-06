@@ -10,6 +10,11 @@
   flex-direction: row;
   height: 500px;
 }
+.card-container-col {
+  display: flex;
+  flex-direction: column;;
+  height: 500px;
+}
 .section-left {
   width: 30%;
   font-size: 25px;

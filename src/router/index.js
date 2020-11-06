@@ -11,6 +11,7 @@ import Contributions from '../components/resume/Contributions.vue'
 import Relationship from '../components/resume/Relationship.vue'
 import About from '../components/resume/About.vue'
 import ReposDetail from '../components/resume/ReposDetail.vue'
+import Fork from '../components/repos/Fork.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -23,6 +24,11 @@ const routes = [
     path: '/resume',
     name: 'Resume',
     component: Resume
+  },
+  {
+    path: '/fork',
+    name: 'Fork',
+    component: Fork
   },
   {
     path: '/resume2',

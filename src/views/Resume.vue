@@ -341,7 +341,7 @@ export default {
   margin-top: 50px;
   li {
     // size: 10pxs;
-    margin-bottom: 14px;
+    // margin-bottom: 14px;
   }
 }
 .info-title {

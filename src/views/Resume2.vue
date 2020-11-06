@@ -5,7 +5,7 @@
     <div class="subtitle">{{ subtitle[changeActive] }}</div>
     <!-- <h1 style="text-align: center;">avoidLabelOverlap 's Resume</h1> -->
     <!-- <profile></profile> -->
-    <div class="content">
+    <div class="content" ref="content">
       <vue-page-transition name="fade-in-up">
         <router-view/>
       </vue-page-transition>
@@ -61,6 +61,7 @@ export default {
   },
   // 获取数据
   created() {
+    this.changeActive = sessionStorage.getItem('activePage')
     // this.username = this.$route.query.username
     // this.GetRepos()
     // this.GetStats()
@@ -68,10 +69,13 @@ export default {
   },
   // 渲染页面
   mounted() {
-    window.addEventListener('mousewheel', this.handleScroll, false)
+    this.$refs.content.addEventListener('mousewheel', this.handleScroll, false)
     // this.initDataAndChart()
     // this.initDataAndChart()
     // this.mytest()
+  },
+  beforeDestroy() {
+    sessionStorage.setItem('activePage', this.changeActive)
   },
   methods: {
     handleScroll(e) {
@@ -92,6 +96,7 @@ export default {
           this.$router.push({ path: arrList[this.changeActive].index })
         }
       }
+      sessionStorage.setItem('activePage', this.changeActive)
     }
   }
 }
