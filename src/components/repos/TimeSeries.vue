@@ -4,6 +4,8 @@
 
 <script>
 export default {
+  name: 'timeSeries',
+  // props: ['username', 'reposName'],
   data() {
     return {
       username: 'hinesboy',
