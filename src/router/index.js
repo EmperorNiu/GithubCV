@@ -12,6 +12,7 @@ import Relationship from '../components/resume/Relationship.vue'
 import About from '../components/resume/About.vue'
 import ReposDetail from '../components/resume/ReposDetail.vue'
 import Fork from '../components/repos/Fork.vue'
+import TimeSeries from '../components/repos/TimeSeries.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -29,6 +30,11 @@ const routes = [
     path: '/fork',
     name: 'Fork',
     component: Fork
+  },
+  {
+    path: '/time',
+    name: 'Time',
+    component: TimeSeries
   },
   {
     path: '/resume2',
