@@ -13,6 +13,9 @@ import About from '../components/resume/About.vue'
 import ReposDetail from '../components/resume/ReposDetail.vue'
 import Fork from '../components/repos/Fork.vue'
 import TimeSeries from '../components/repos/TimeSeries.vue'
+import BarSum from '../components/repos/Bar_Sum.vue'
+import BarOrigin from '../components/repos/Bar_Origin.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -35,6 +38,16 @@ const routes = [
     path: '/time',
     name: 'Time',
     component: TimeSeries
+  },
+  {
+    path: '/bar_sum',
+    name: 'Bar_Sum',
+    component: BarSum
+  },
+  {
+    path: '/bar_origin',
+    name: 'Bar_Origin',
+    component: BarOrigin
   },
   {
     path: '/resume2',
