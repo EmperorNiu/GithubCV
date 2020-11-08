@@ -12,10 +12,45 @@
           </div>
           <!-- 项目内容 -->
           <div class='repos-content'>
-            <div class='item'>
-              <div class='item-title'>Forks:</div>
-              <div class='item-image1' ref='fork_tree_image'></div>
-            </div>
+            <el-tabs v-model="activeName" @tab-click="handleClick">
+              <el-tab-pane label="Overview" name="0">
+                <div class='item'>
+                  <div class='item-title'>Overview:</div>
+                  <div class="item-content">
+                    <prIssue></prIssue>
+                  </div>
+                </div>
+              </el-tab-pane>
+              <el-tab-pane label="Contribution" name="1">配置管理</el-tab-pane>
+              <el-tab-pane label="Fork" name="2">
+                <div class='item'>
+                  <el-row>
+                    <el-col :span="16"><div class='item-title'>Trend of the number of Forks:</div></el-col>
+                    <el-col :span="8">
+                      <el-radio-group v-model="fork_radio" size="small" style="line-height: 60px;">
+                        <el-radio-button label="Number"></el-radio-button>
+                        <el-radio-button label="Accumulated"></el-radio-button>
+                      </el-radio-group>
+                    </el-col>
+                  </el-row>
+                  <div class="item-content">
+                    <div v-if="fork_radio === 'Number'"><barOrigin></barOrigin></div>
+                    <div v-else><barSum></barSum></div>
+                  </div>
+                </div>
+              </el-tab-pane>
+              <el-tab-pane label="PullRequest" name="3">定时任务补偿</el-tab-pane>
+              <el-tab-pane label="Code&Commit" name="4">
+                <div class='item'>
+                  <div class='item-title'>Commit Numbers:</div>
+                  <div class="item-content">
+                    <timeSeries></timeSeries>
+                  </div>
+                </div>
+              </el-tab-pane>
+              <el-tab-pane label="Issue" name="5">定时任务补偿</el-tab-pane>
+              <el-tab-pane label="Collaboration" name="6">定时任务补偿</el-tab-pane>
+            </el-tabs>
           </div>
         </div>
       </el-main>
@@ -25,23 +60,25 @@
 </template>
 
 <script>
+import PrIssue from '../repos/Pr_Issue.vue'
+import BarOrigin from '../repos/Bar_Origin.vue'
+import BarSum from '../repos/Bar_Sum.vue'
+import TimeSeries from '../repos/TimeSeries.vue'
 export default {
   data() {
     return {
       username: 'EmperorNiu',
       repos: {},
       reposIndex: 0,
-      activities: [{
-        content: '活动按期开始',
-        timestamp: '2018-04-15'
-      }, {
-        content: '通过审核',
-        timestamp: '2018-04-13'
-      }, {
-        content: '创建成功',
-        timestamp: '2018-04-11'
-      }]
+      activitise: '0',
+      fork_radio: 'Number'
     }
+  },
+  components: {
+    prIssue: PrIssue,
+    barOrigin: BarOrigin,
+    barSum: BarSum,
+    timeSeries: TimeSeries
   },
   methods: {
     goBack() {
@@ -265,24 +302,31 @@ export default {
   // background-color: #E9EEF3;
   color: #333;
   text-align: center;
-  line-height: 160px;
+  // line-height: 160px;
 }
 .repos-title {
   font-size: 28px;
+  height: 90px;
+  line-height: 90px;
 }
 .time-card {
   height: 100px;
   // width: 550px;
 }
 .item {
-  width: 700px;
-  height: 500px;
+  width: 100%;
+  height: 530px;
   display: flex;
   flex-direction: column;
 }
 .item-title {
-  width: 200px;
+  width: 400px;
   font-size: 20px;
-  height: 60px;
+  height: 55px;
+  line-height: 60px;
+}
+.item-content {
+  margin-left: 160px;
+  margin-top: 10px;
 }
 </style>

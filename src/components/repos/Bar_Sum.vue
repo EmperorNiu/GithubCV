@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'bar',
+  name: 'bar_sum',
   // props: ['username', 'reposName'],
   data() {
     return {

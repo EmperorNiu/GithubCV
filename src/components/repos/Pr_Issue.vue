@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'bar',
+  name: 'pr_issue',
   // props: ['username', 'reposName'],
   data() {
     return {

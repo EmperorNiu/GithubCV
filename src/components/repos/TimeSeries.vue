@@ -88,7 +88,7 @@ export default {
                 color: 'rgb(255, 70, 131)'
               }])
             },
-            data: forkData.data
+            data: forkData.data_origin
           }
         ]
       }

@@ -6,11 +6,11 @@
           :data="contribution"
           border
           max-height="450"
-          style="width: 80%; margin-top: 15px"
+          style="width: 660px; margin-top: 15px"
         >
-          <el-table-column prop="repos" label="repository name">
+          <el-table-column prop="repos" label="repository name" width="600">
           </el-table-column>
-          <el-table-column prop="value" label="commits number"  width="180">
+          <el-table-column prop="value" label="commits number" width="200">
           </el-table-column>
         </el-table>
         <!-- <div class="info-container">
