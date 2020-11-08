@@ -16,6 +16,7 @@ import TimeSeries from '../components/repos/TimeSeries.vue'
 import BarSum from '../components/repos/Bar_Sum.vue'
 import BarOrigin from '../components/repos/Bar_Origin.vue'
 import PrIssue from '../components/repos/Pr_Issue.vue'
+import Compare from '../components/repos/Compare.vue'
 
 Vue.use(VueRouter)
 
@@ -29,6 +30,11 @@ const routes = [
     path: '/resume',
     name: 'Resume',
     component: Resume
+  },
+  {
+    path: '/Compare',
+    name: 'Compare',
+    component: Compare
   },
   {
     path: '/fork',

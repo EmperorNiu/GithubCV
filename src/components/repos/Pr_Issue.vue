@@ -33,7 +33,7 @@ export default {
           }
         },
         legend: {
-          data: ['蒸发量', '降水量', '平均温度']
+          data: ['PR', 'Issue', 'Commit']
         },
         xAxis: [
           {
@@ -57,7 +57,7 @@ export default {
           },
           {
             type: 'value',
-            name: 'commit数量',
+            name: 'Commit数量',
             min: 0,
             max: 60,
             interval: 10,
@@ -78,7 +78,7 @@ export default {
             data: PrIssue.issue
           },
           {
-            name: 'commit',
+            name: 'Commit',
             type: 'line',
             yAxisIndex: 1,
             data: PrIssue.commit
