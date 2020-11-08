@@ -15,6 +15,7 @@ import Fork from '../components/repos/Fork.vue'
 import TimeSeries from '../components/repos/TimeSeries.vue'
 import BarSum from '../components/repos/Bar_Sum.vue'
 import BarOrigin from '../components/repos/Bar_Origin.vue'
+import PrIssue from '../components/repos/Pr_Issue.vue'
 
 Vue.use(VueRouter)
 
@@ -48,6 +49,11 @@ const routes = [
     path: '/bar_origin',
     name: 'Bar_Origin',
     component: BarOrigin
+  },
+  {
+    path: '/pr_issue',
+    name: 'Pr_Issue',
+    component: PrIssue
   },
   {
     path: '/resume2',

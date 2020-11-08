@@ -15,6 +15,10 @@ export default {
   methods: {
     drawChart(chart, forkData) {
       var option = {
+        title: {
+          text: 'Changes in the number of forks in each month',
+          left: 'center'
+        },
         color: ['#3398DB'],
         tooltip: {
           trigger: 'axis',

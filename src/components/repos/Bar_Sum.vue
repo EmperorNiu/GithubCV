@@ -15,6 +15,10 @@ export default {
   methods: {
     drawChart(chart, forkData) {
       var option = {
+        title: {
+          text: 'Trend of the total number of forks',
+          left: 'center'
+        },
         color: ['#3398DB'],
         tooltip: {
           trigger: 'axis',
