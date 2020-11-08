@@ -17,6 +17,7 @@ import BarSum from '../components/repos/Bar_Sum.vue'
 import BarOrigin from '../components/repos/Bar_Origin.vue'
 import PrIssue from '../components/repos/Pr_Issue.vue'
 import Compare from '../components/repos/Compare.vue'
+import CompareOther from '../components/repos/Compare_Other.vue'
 
 Vue.use(VueRouter)
 
@@ -35,6 +36,11 @@ const routes = [
     path: '/Compare',
     name: 'Compare',
     component: Compare
+  },
+  {
+    path: '/Compare_Other',
+    name: 'CompareOther',
+    component: CompareOther
   },
   {
     path: '/fork',
