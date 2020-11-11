@@ -18,7 +18,7 @@ import BarOrigin from '../components/repos/Bar_Origin.vue'
 import PrIssue from '../components/repos/Pr_Issue.vue'
 import Compare from '../components/repos/Compare.vue'
 import CompareOther from '../components/repos/Compare_Other.vue'
-
+import Loading from '../views/Loading2.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -26,6 +26,11 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/loading',
+    name: 'Loading',
+    component: Loading
   },
   {
     path: '/resume',

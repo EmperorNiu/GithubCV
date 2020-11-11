@@ -1,9 +1,10 @@
 .card {
-  height: 520px;
-  width: 84%;
-  margin-top: 20px;
-  margin-left: 8%;
-  background-image: url("../so-white.png");
+  height: 600px;
+  width: 80%;
+  margin-top: 15px;
+  margin-left: 10%;
+  background-color: #ffffff;
+  /* background-image: url("../so-white.png"); */
 }
 .card-container {
   display: flex;

@@ -9,6 +9,9 @@
                 <span>{{repos[item-1].name}}</span><i class="el-icon-view el-icon--right"></i>
               </el-button>
             </div>
+            <div class="subtitle">
+              Preview of the repository:
+            </div>
             <div class="info-list">
               <div class="info-item">
                 <span class="info-title">Project Maintenance Time:  </span>
@@ -23,6 +26,10 @@
               <div class="info-item">
                 <span class="info-title">Main Languages:  </span>
                 <span class="info-content">{{ repos[item-1].language }}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-title">Open Issues:  </span>
+                <span class="info-content">{{ repos[item-1].open_issue }}</span>
               </div>
               <div class="info-item">
                 <span class="info-title">Stars Num:  </span>
@@ -117,6 +124,7 @@ export default {
                 html: repos[$j].html_url,
                 description: repos[$j].description,
                 homepage: repos[$j].homepage,
+                open_issue: repos[$j].open_issues_count,
                 created_at:
                   ctime.getFullYear().toString() +
                   '.' +
@@ -159,15 +167,20 @@ export default {
 .title {
   width: 100%;
   text-align: center;
-  font-size: 30px;
+  font-size: 27px;
+}
+.subtitle {
+  margin-top: 25px;
+  margin-left: 30px;
+  font-size: 18px;
 }
 .info-list {
   height: auto;
   align-self: center;
   display: flex;
   flex-direction: column;
-  margin-top: 25px;
-  padding-left: 20px;
+  margin-top: 10px;
+  padding-left: 65px;
   // position: relative;
   // top: 50%;
   // transform: translateY(-50%);
@@ -180,9 +193,11 @@ export default {
 .info-title {
   font-weight: bold;
   color: rgb(18, 0, 100);
+  margin-right: 10px;
 }
 .carousel{
   width: 100%;
+  margin-top: 50px;
 }
 .el-carousel__item h3 {
   color: #475669;
@@ -193,10 +208,10 @@ export default {
 }
 
 .el-carousel__item:nth-child(2n) {
-  background-color: #dbe9ff;
+  background-color: #fdfdff;
 }
 
 .el-carousel__item:nth-child(2n+1) {
-  background-color: #d3dce6;
+  background-color: #fbfbfb;
 }
 </style>
