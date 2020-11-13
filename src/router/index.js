@@ -17,7 +17,8 @@ import BarSum from '../components/repos/Bar_Sum.vue'
 import BarOrigin from '../components/repos/Bar_Origin.vue'
 import PrIssue from '../components/repos/Pr_Issue.vue'
 import Compare from '../components/repos/Compare.vue'
-import CompareOther from '../components/repos/Compare_Other.vue'
+import CompareOther from '../components/repos/Other.vue'
+import Ability from '../components/repos/ability.vue'
 import Loading from '../views/Loading2.vue'
 Vue.use(VueRouter)
 
@@ -36,6 +37,11 @@ const routes = [
     path: '/resume',
     name: 'Resume',
     component: Resume
+  },
+  {
+    path: '/ability',
+    name: 'Ability',
+    component: Ability
   },
   {
     path: '/Compare',
