@@ -1,7 +1,7 @@
 .card {
-  height: 600px;
+  height: 650px;
   width: 80%;
-  margin-top: 15px;
+  margin-top: 10px;
   margin-left: 10%;
   background-color: #ffffff;
   /* background-image: url("../so-white.png"); */
@@ -9,7 +9,8 @@
 .card-container {
   display: flex;
   flex-direction: row;
-  height: 500px;
+  padding-top: 20px;
+  height: 550px;
 }
 .card-container-col {
   display: flex;

@@ -67,7 +67,7 @@ import TimeSeries from '../repos/TimeSeries.vue'
 export default {
   data() {
     return {
-      username: 'EmperorNiu',
+      username: '',
       repos: {},
       reposIndex: 0,
       activitise: '0',
@@ -263,12 +263,15 @@ export default {
     }
   },
   mounted() {
-    this.initDataAndChart()
+    // this.initDataAndChart()
   },
   created() {
     this.reposIndex = this.$route.query.reposIndex
+    this.username = sessionStorage.getItem('username')
     var repos = JSON.parse(sessionStorage.getItem('repos'))
+    repos = Object.values(repos)
     this.repos = repos[this.reposIndex]
+    console.log(this.repos)
   }
 }
 </script>

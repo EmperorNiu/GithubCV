@@ -47,7 +47,7 @@
               </div>
               <div class="info-item">
                 <span class="info-title">Link:  </span>
-                <span class="info-content">{{ repos[item-1].html }}</span>
+                <span class="info-content">{{ repos[item-1].url }}</span>
               </div>
             </div>
           </el-carousel-item>
@@ -154,7 +154,8 @@ export default {
   },
   created() {
     if (sessionStorage.getItem('repos')) {
-      this.repos = JSON.parse(sessionStorage.getItem('repos'))
+      var repos = JSON.parse(sessionStorage.getItem('repos'))
+      this.repos = Object.values(repos)
     } else {
       this.getAllRepos()
     }

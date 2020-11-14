@@ -16,7 +16,7 @@
           </div>
         </div>
         <div class="word-cloud">
-          <img src="../../assets/result.jpg" style="width:80%; margin-left:10%">
+          <img src="../../assets/result.jpg" style="width:70%; margin-left:15%">
         </div>
       </div>
     </el-card>
@@ -30,6 +30,9 @@ export default {
       username: 'EmperorNiu',
       he: '11'
     }
+  },
+  mounted() {
+    this.username = sessionStorage.getItem('username')
   }
 }
 </script>
@@ -37,25 +40,27 @@ export default {
 <style lang="less" scoped>
 @import '../../assets/css/globalResume.css';
 .section {
-  height: 190px;
+  height: 250px;
   display: flex;
   flex-direction: row;
 }
 .section-title {
-  width: 25%;
+  width: 30%;
   font-size: 24px;
   font-weight: 5px;
-  line-height: 180px;
+  line-height: 250px;
+  text-align: center;
 }
 .section-content {
   text-indent:2em;
-  padding-top: 35px;
-  padding-left: 8px;
-  width: 75%;
+  padding-top: 75px;
+  padding-left: 8%;
+  padding-right: 10%;
+  width: 70%;
   // text-align: left;
 }
 .about-text {
-  font-size: 16px;
+  font-size: 18px;
 }
 .word-cloud {
   width: 100%;

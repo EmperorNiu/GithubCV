@@ -195,11 +195,11 @@ export default {
 }
 .subtitle {
   width: 100%;
-  height: 40px;
+  height: 70px;
   color: #475669;
-  font-size: 25px;
+  font-size: 28px;
   text-align: center;
-  line-height: 50px;
+  line-height: 70px;
   padding-top: 5px;
   padding-bottom: 5px;
 }

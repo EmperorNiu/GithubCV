@@ -22,12 +22,14 @@ export default {
       loading: false,
       repos: [],
       profile: {},
-      username: 'EmperorNiu'
+      username: ''
     }
   },
   mounted() {
+    this.username = this.$route.query.username
+    console.log(this.username)
     this.loading = true
-    this.GetStats()
+    this.loadData()
     // const loading = this.$loading({
     //   lock: true,
     //   text: 'Loading',
@@ -39,11 +41,26 @@ export default {
     // }, 2000)
   },
   methods: {
+    loadData() {
+      var url = '/githubUser/init?username=' + this.username
+      this.$http.get(url).then((result) => {
+        var data = result.data
+        sessionStorage.setItem('profile', JSON.stringify(data.profile))
+        sessionStorage.setItem('repos', JSON.stringify(data.repos))
+        sessionStorage.setItem('contribution', JSON.stringify(data.contributions))
+        sessionStorage.setItem('allStar', JSON.stringify(data.all_fork))
+        sessionStorage.setItem('allFork', JSON.stringify(data.all_star))
+        var languages = {
+          keyList: data.language_key,
+          percent: data.language_percent
+        }
+        sessionStorage.setItem('languages', JSON.stringify(languages))
+        this.loading = false
+      })
+    },
     async GetStats() {
-      console.log(123)
       var url = 'https://api.github.com/users/' + this.username
       this.$http.get(url).then(async (result) => {
-        console.log(456)
         this.profile = result.data
         var ctime = new Date(result.data.created_at)
         ctime = ctime.getFullYear().toString() + '-' + (ctime.getMonth() + 1).toString()
@@ -113,10 +130,10 @@ export default {
         this.progressLoading = true
         this.percentage = 0
         this.timeStart = setInterval(() => {
-          if (this.percentage < 95) {
-            this.percentage += 0.1
+          if (this.percentage < 96) {
+            this.percentage += 0.4
           }
-        }, 20)
+        }, 50)
       })
     },
     // 进度条结束

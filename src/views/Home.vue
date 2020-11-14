@@ -17,10 +17,6 @@
       <el-divider direction="vertical"></el-divider>
       <span>Privacy Policy</span>
     </div>
-    <!-- <SyncLoading
-      :loading="perLoading"
-      :type="'circle'">
-    </SyncLoading> -->
   </div>
 </template>
 
@@ -30,8 +26,7 @@
 export default {
   data() {
     return {
-      username: '',
-      perLoading: true
+      username: ''
     }
   },
   // components: {
@@ -39,8 +34,9 @@ export default {
   // },
   methods: {
     getResume() {
+      sessionStorage.setItem('username', this.username)
       this.$router.push({
-        path: '/resume',
+        path: '/loading',
         query: {
           username: this.username
         }

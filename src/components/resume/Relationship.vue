@@ -4,8 +4,7 @@
     <el-card class="card">
       <div class="card-container">
         <div ref="relationship_graph" style="height: 480px;width:92%;margin-left:4%"></div>
-        <!-- <p>123</p>
-        <div class="section-left">
+        <!-- <div class="section-left">
           About This Resume
         </div>
         <div class="section-right">
@@ -23,7 +22,7 @@
 export default {
   data() {
     return {
-      username: 'defunkt',
+      username: 'EmperorNiu',
       he: '11'
     }
   },
@@ -33,52 +32,6 @@ export default {
   },
   methods: {
     initDataAndChart(chart, relationData) {
-      // console.log(relationData.response)
-      // var chart = this.$echarts.init(this.$refs.relationship_graph)
-      // console.log(123)
-      // var option = {
-      //   title: {
-      //     text: '基础雷达图'
-      //   },
-      //   tooltip: {},
-      //   legend: {
-      //     data: ['预算分配（Allocated Budget）', '实际开销（Actual Spending）']
-      //   },
-      //   radar: {
-      //     // shape: 'circle',
-      //     name: {
-      //       textStyle: {
-      //         color: '#fff',
-      //         backgroundColor: '#999',
-      //         borderRadius: 3,
-      //         padding: [3, 5]
-      //       }
-      //     },
-      //     indicator: [
-      //       { name: '销售（sales）', max: 6500 },
-      //       { name: '管理（Administration）', max: 16000 },
-      //       { name: '信息技术（Information Techology）', max: 30000 },
-      //       { name: '客服（Customer Support）', max: 38000 },
-      //       { name: '研发（Development）', max: 52000 },
-      //       { name: '市场（Marketing）', max: 25000 }
-      //     ]
-      //   },
-      //   series: [{
-      //     name: '预算 vs 开销（Budget vs spending）',
-      //     type: 'radar',
-      //     // areaStyle: {normal: {}},
-      //     data: [
-      //       {
-      //         value: [4300, 10000, 28000, 35000, 50000, 19000],
-      //         name: '预算分配（Allocated Budget）'
-      //       },
-      //       {
-      //         value: [5000, 14000, 28000, 31000, 42000, 21000],
-      //         name: '实际开销（Actual Spending）'
-      //       }
-      //     ]
-      //   }]
-      // }
       var option = {
         // backgroundColor: '#ccc', // 背景颜色
         title: {
@@ -203,7 +156,7 @@ export default {
         var relationData = JSON.parse(sessionStorage.getItem('relationship'))
         this.initDataAndChart(chart, relationData)
       } else {
-        this.$http.get('user/contribute/' + this.username).then((result) => {
+        this.$http.get('user/cooperation/' + this.username).then((result) => {
           var relationData = result.data
           sessionStorage.setItem('relationship', JSON.stringify(result.data))
           console.log(relationData)

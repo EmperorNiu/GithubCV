@@ -5,12 +5,14 @@
         <el-table
           :data="contribution"
           border
-          max-height="450"
+          max-height="550"
           style="width: 660px; margin-top: 15px"
         >
-          <el-table-column prop="repos" label="repository name" width="600">
+          <el-table-column prop="repos" label="repository name">
           </el-table-column>
-          <el-table-column prop="value" label="commits number" width="200">
+          <el-table-column prop="commit" label="commits number">
+          </el-table-column>
+          <el-table-column prop="issue" label="commits number">
           </el-table-column>
         </el-table>
         <!-- <div class="info-container">
@@ -54,8 +56,8 @@ export default {
   created() {
     if (sessionStorage.getItem('contribution')) {
       var data = JSON.parse(sessionStorage.getItem('contribution'))
-      this.contribution = data.contribution
-      this.sum = data.total_count
+      this.contribution = data
+      // this.sum = data.total_count
     } else {
       this.getContribution()
     }

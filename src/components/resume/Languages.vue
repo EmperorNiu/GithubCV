@@ -73,7 +73,7 @@ export default {
             labelLine: {
               show: false
             },
-            data: languageData.response
+            data: languageData.percent
           }
         ]
       }
