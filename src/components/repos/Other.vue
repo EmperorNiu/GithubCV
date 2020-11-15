@@ -17,7 +17,7 @@ export default {
         legend: {},
         tooltip: {},
         dataset: {
-          source: CompareOther.Response
+          source: CompareOther.other
         },
         xAxis: { type: 'category' },
         yAxis: {},
@@ -29,15 +29,15 @@ export default {
     },
     initData() {
       var chart = this.$echarts.init(this.$refs.fork_time_image)
-      if (sessionStorage.getItem('Compare_Other')) {
-        var PrIssue = JSON.parse(sessionStorage.getItem('Compare_Other'))
+      if (sessionStorage.getItem('Compare')) {
+        var PrIssue = JSON.parse(sessionStorage.getItem('Compare'))
         this.drawChart(chart, PrIssue)
       } else {
         var url =
-          'repos/compare_others/' + this.username
+          'repos/compare_details/' + this.username
         this.$http.get(url).then((result) => {
           var CompareOther = result.data
-          sessionStorage.setItem('Compare_Other', JSON.stringify(result.data))
+          sessionStorage.setItem('Compare', JSON.stringify(result.data))
           this.drawChart(chart, CompareOther)
         })
       }

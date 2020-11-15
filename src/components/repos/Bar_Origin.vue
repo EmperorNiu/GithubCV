@@ -52,7 +52,7 @@ export default {
             name: 'Fork 数量',
             type: 'bar',
             barWidth: '60%',
-            data: forkData.data_origin
+            data: forkData.fork
           }
         ]
       }
@@ -60,15 +60,15 @@ export default {
     },
     initData() {
       var chart = this.$echarts.init(this.$refs.fork_time_image)
-      if (sessionStorage.getItem('forkNum')) {
-        var forkData = JSON.parse(sessionStorage.getItem('forkNum'))
+      if (sessionStorage.getItem('repo_detail')) {
+        var forkData = JSON.parse(sessionStorage.getItem('repo_detail'))
         this.drawChart(chart, forkData)
       } else {
         var url =
           'repos/forkNum?username=' + this.username + '&repos=' + this.reposName
         this.$http.get(url).then((result) => {
           var forkData = result.data
-          sessionStorage.setItem('forkNum', JSON.stringify(result.data))
+          sessionStorage.setItem('repo_detail', JSON.stringify(result.data))
           this.drawChart(chart, forkData)
         })
       }
