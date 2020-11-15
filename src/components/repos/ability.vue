@@ -8,7 +8,7 @@ export default {
   // props: ['username', 'reposName'],
   data() {
     return {
-      username: 'EmperorNiu'
+      username: 'advancedalgebra'
     }
   },
   methods: {
@@ -72,6 +72,7 @@ export default {
     }
   },
   mounted() {
+    // this.username = sessionStorage.getItem('username')
     this.initData()
   }
 }

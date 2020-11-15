@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <div class="loading-container" v-if="progressLoading">
+      <div class="title">Loading</div>
       <el-progress
         class="loading"
         :text-inside="true"
@@ -9,7 +10,7 @@
         :show-text="false"
       ></el-progress>
     </div>
-    <el-button @click="stop">Stop</el-button>
+    <!-- <el-button @click="stop">Stop</el-button> -->
   </div>
 </template>
 
@@ -144,10 +145,10 @@ export default {
         this.progressLoading = false
       }, 300)
       this.$router.push('/resume2')
-    },
-    stop() {
-      this.loading = false
     }
+    // stop() {
+    //   this.loading = false
+    // }
   },
   watch: {
     // 监听loading状态控制进度条显示
@@ -171,10 +172,17 @@ export default {
 }
 .loading-container {
   width: 76%;
-  height: 100%;
+  margin-top: 20%;
+  // height: 100%;
   margin-left: 12%;
 }
+.title {
+  text-align: center;
+  font-size: 25px;
+  font-weight: 800;
+  color: #409EFF;
+}
 .loading {
-  padding-top: 25%;
+  // padding-top: 25%;
 }
 </style>

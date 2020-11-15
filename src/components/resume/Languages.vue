@@ -5,13 +5,15 @@
         <!-- 各语言占比 -->
         <!-- <div class="section-left">Languages</div> -->
         <div class="language-image-container">
-          <div ref="language_pie" style="height:480px;"></div>
+          <div ref="language_pie" style="height:480px;" v-if="isPercent"></div>
+          <ability v-if="!isPercent"></ability>
         </div>
         <div class="button-container">
-          <el-button @click="dialogVisible = true">Deep in Tech Skills</el-button>
+          <el-button @click="dialogVisible = true" v-if="isPercent">Deep in Tech Skills</el-button>
+          <el-button @click="isPercent = true" v-if="!isPercent">Back</el-button>
         </div>
         <el-dialog
-          title="提示"
+          title="Tips"
           :visible.sync="dialogVisible"
           width="30%"
           :before-close="handleClose">
@@ -27,12 +29,17 @@
 </template>
 
 <script>
+import Ability from '../repos/ability.vue'
 export default {
   data() {
     return {
       username: 'EmperorNiu',
-      dialogVisible: false
+      dialogVisible: false,
+      isPercent: true
     }
+  },
+  components: {
+    ability: Ability
   },
   methods: {
     initDataAndChart() {
@@ -101,9 +108,11 @@ export default {
         })
     },
     deepAnalysis() {
-      this.$router.push({
-        path: 'tech'
-      })
+      this.dialogVisible = false
+      this.isPercent = false
+      // this.$router.push({
+      //   path: 'tech'
+      // })
     }
   },
   mounted() {

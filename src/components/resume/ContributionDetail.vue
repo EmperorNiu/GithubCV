@@ -1,117 +1,124 @@
 <template>
-  <div>
-    <el-card class="card">
-      <div class="card-container-language">
-        123
-      </div>
-    </el-card>
+  <div class='container'>
+    <el-container>
+      <el-aside width='15%'></el-aside>
+      <el-main>
+        <div class='container'>
+          <el-page-header @back='goBack' content='Contribution Compare' title='back'>
+          </el-page-header>
+          <!-- 项目标题 -->
+          <div class='repos-title'>
+            {{repos.name}}
+          </div>
+          <!-- 项目内容 -->
+          <div class='repos-content'>
+            <div class='item'>
+              <el-row>
+                <el-col :span="16"><div class='item-title'>Trend of the number of Forks:</div></el-col>
+                <el-col :span="8">
+                  <el-radio-group v-model="fork_radio" size="small" style="line-height: 60px;">
+                    <el-radio-button label="Number"></el-radio-button>
+                    <el-radio-button label="Accumulated"></el-radio-button>
+                  </el-radio-group>
+                </el-col>
+              </el-row>
+              <div class="item-content">
+                <div v-if="fork_radio === 'Number'"><compare-me></compare-me></div>
+                <div v-else><compare-other></compare-other></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </el-main>
+      <el-aside width='15%'></el-aside>
+    </el-container>
   </div>
 </template>
 
 <script>
+import Compare from '../repos/Compare.vue'
+import Other from '../repos/Other.vue'
+
 export default {
   data() {
     return {
-      username: 'EmperorNiu',
-      dialogVisible: false
+      username: '',
+      repos: {},
+      reposIndex: 0,
+      activitise: '0',
+      fork_radio: 'Number'
     }
   },
   components: {
+    compareMe: Compare,
+    CompareOther: Other
   },
   methods: {
-    initDataAndChart() {
-      var chart = this.$echarts.init(this.$refs.language_pie)
-      // chart.showLoading()
-      if (sessionStorage.getItem('languages')) {
-        var languageData = JSON.parse(sessionStorage.getItem('languages'))
-        this.drawChart(chart, languageData)
-      } else {
-        this.$http.get('repos/languages?username=' + this.username).then((result) => {
-          var languageData = result.data
-          // this.languageData = result.data
-          sessionStorage.setItem('languages', JSON.stringify(result.data))
-          // chart.hideLoadinig()
-          // console.log(languageData)
-          this.drawChart(chart, languageData)
-        })
-      }
-    },
-    drawChart(chart, languageData) {
-      // 准备数据
-      var option = {
-        title: {
-          text: 'The Proportion of Programming Language',
-          left: 'center'
-        },
-        tooltip: {
-          trigger: 'item',
-          formatter: '{a} <br/>{b}: {c} ({d}%)'
-        },
-        legend: {
-          orient: 'vertical',
-          left: 200,
-          data: languageData.keyList
-        },
-        series: [
-          {
-            name: 'languages',
-            type: 'pie',
-            radius: ['50%', '70%'],
-            avoidLabelOverlap: false,
-            label: {
-              show: false,
-              position: 'center'
-            },
-            emphasis: {
-              label: {
-                show: true,
-                fontSize: '25',
-                fontWeight: 'bold'
-              }
-            },
-            labelLine: {
-              show: false
-            },
-            data: languageData.percent
-          }
-        ]
-      }
-      chart.setOption(option)
-    },
-    handleClose(done) {
-      this.$confirm('Confirm close？')
-        .then(_ => {
-          done()
-        })
-    },
-    deepAnalysis() {
-      this.$router.push({
-        path: 'tech'
-      })
+    goBack() {
+      this.$router.go(-1)
     }
   },
   mounted() {
-    this.username = sessionStorage.getItem('username')
-    // this.initDataAndChart()
+  },
+  created() {
   }
 }
 </script>
 
-<style lang="less" scoped>
-@import '../../assets/css/globalResume.css';
-.card-container-language {
+<style lang='less' scoped>
+.container {
+  height: 100%;
+  width: 100%;
+  // display: flex;
+  // flex-direction: column;
+  // background-image: url('../../assets/blue-snow.png');
+}
+.el-container {
+  height: 100%;
+}
+.el-header {
+  background-color: #B3C0D1;
+  color: #333;
+  text-align: center;
+  line-height: 60px;
+}
+.el-aside {
+  // background-color: #D3DCE6;
+  background-image: url('../../assets/blue-snow.png');
+  color: #333;
+  text-align: center;
+  line-height: 200px;
+}
+.el-main {
+  background-image: url('../../assets/so-white.png');
+  // background-color: #E9EEF3;
+  color: #333;
+  text-align: center;
+  // line-height: 160px;
+}
+.repos-title {
+  font-size: 28px;
+  height: 90px;
+  line-height: 90px;
+}
+.time-card {
+  height: 100px;
+  // width: 550px;
+}
+.item {
+  width: 100%;
+  height: 530px;
   display: flex;
   flex-direction: column;
-  padding-top: 20px;
-  height: 550px;
 }
-.language-image-container {
-  // padding-left: 10px;
-  width: 100%;
-  text-align: center;
+.item-title {
+  width: 400px;
+  font-size: 20px;
+  height: 55px;
+  line-height: 60px;
 }
-.button-container {
-  width: 100%;
-  text-align: center;
+.item-content {
+  margin-left: 160px;
+  margin-top: 10px;
 }
 </style>

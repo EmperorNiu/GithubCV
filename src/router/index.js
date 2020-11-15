@@ -114,10 +114,6 @@ const routes = [
         component: Tech
       },
       {
-        path: '/contributionDetail',
-        component: ContributionDetail
-      },
-      {
         path: '/about',
         component: About
       }
@@ -127,6 +123,11 @@ const routes = [
     path: '/reposDetail',
     name: 'ReposDetail',
     component: ReposDetail
+  },
+  {
+    path: '/contributionDetail',
+    name: 'ContributionDetail',
+    component: ContributionDetail
   }
 ]
 
