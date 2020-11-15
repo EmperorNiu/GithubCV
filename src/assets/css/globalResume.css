@@ -15,7 +15,8 @@
 .card-container-col {
   display: flex;
   flex-direction: column;
-  height: 500px;
+  padding-top: 20px;
+  height: 550px;
 }
 .section-left {
   width: 30%;

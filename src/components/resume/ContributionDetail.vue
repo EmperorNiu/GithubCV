@@ -1,26 +1,8 @@
 <template>
   <div>
     <el-card class="card">
-      <div class="card-container-col">
-        <!-- 各语言占比 -->
-        <!-- <div class="section-left">Languages</div> -->
-        <div class="language-image-container">
-          <div ref="language_pie" style="height:480px;"></div>
-        </div>
-        <div class="button-container">
-          <el-button @click="dialogVisible = true">Deep in Tech Skills</el-button>
-        </div>
-        <el-dialog
-          title="提示"
-          :visible.sync="dialogVisible"
-          width="30%"
-          :before-close="handleClose">
-          <span>It may take a while</span>
-          <span slot="footer" class="dialog-footer">
-            <el-button @click="dialogVisible = false">Cancel</el-button>
-            <el-button type="primary" @click="deepAnalysis">OK</el-button>
-          </span>
-        </el-dialog>
+      <div class="card-container-language">
+        123
       </div>
     </el-card>
   </div>
@@ -33,6 +15,8 @@ export default {
       username: 'EmperorNiu',
       dialogVisible: false
     }
+  },
+  components: {
   },
   methods: {
     initDataAndChart() {
@@ -107,14 +91,20 @@ export default {
     }
   },
   mounted() {
-    this.initDataAndChart()
+    this.username = sessionStorage.getItem('username')
+    // this.initDataAndChart()
   }
 }
 </script>
 
 <style lang="less" scoped>
 @import '../../assets/css/globalResume.css';
-
+.card-container-language {
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+  height: 550px;
+}
 .language-image-container {
   // padding-left: 10px;
   width: 100%;

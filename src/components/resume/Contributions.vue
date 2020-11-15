@@ -1,12 +1,12 @@
 <template>
   <div>
     <el-card class="card">
-      <div class="card-container">
+      <div class="card-container-col">
         <el-table
           :data="contribution"
           border
           max-height="550"
-          style="width: 660px; margin-top: 15px"
+          style="margin-top: 15px"
         >
           <el-table-column prop="repos" label="repository name">
           </el-table-column>
@@ -15,19 +15,9 @@
           <el-table-column prop="issue" label="commits number">
           </el-table-column>
         </el-table>
-        <!-- <div class="info-container">
-          <div></div>
-          <div class="info-list">
-            <div
-              class="info-item"
-              v-for="item in contribution"
-              :key="item.repos"
-            >
-              <span class="info-title">{{ item.repos }}: </span>
-              <span class="info-content">{{ item.value }}</span>
-            </div>
-          </div>
-        </div> -->
+        <div class="button-container">
+          <el-button @click="pushDetail">Contribution Analysis</el-button>
+        </div>
       </div>
     </el-card>
   </div>
@@ -50,6 +40,11 @@ export default {
         this.sum = data.total_count
         this.contribution = data.contribution
         sessionStorage.setItem('contribution', JSON.stringify(result.data))
+      })
+    },
+    pushDetail() {
+      this.$router.push({
+        path: 'contributionDetail'
       })
     }
   },
@@ -91,5 +86,10 @@ export default {
 .info-title {
   font-weight: bold;
   color: rgb(18, 0, 100);
+}
+.button-container {
+  margin-top: 20px;
+  width: 100%;
+  text-align: center;
 }
 </style>

@@ -1,10 +1,11 @@
 <template>
   <div>
     <el-card class="card">
-      <div class="card-container-col">
+      <div class="card-container-language">
+        <ability></ability>
         <!-- 各语言占比 -->
         <!-- <div class="section-left">Languages</div> -->
-        <div class="language-image-container">
+        <!-- <div class="language-image-container">
           <div ref="language_pie" style="height:480px;"></div>
         </div>
         <div class="button-container">
@@ -20,19 +21,23 @@
             <el-button @click="dialogVisible = false">Cancel</el-button>
             <el-button type="primary" @click="deepAnalysis">OK</el-button>
           </span>
-        </el-dialog>
+        </el-dialog> -->
       </div>
     </el-card>
   </div>
 </template>
 
 <script>
+import Ability from '../repos/ability.vue'
 export default {
   data() {
     return {
       username: 'EmperorNiu',
       dialogVisible: false
     }
+  },
+  components: {
+    ability: Ability
   },
   methods: {
     initDataAndChart() {
@@ -107,14 +112,20 @@ export default {
     }
   },
   mounted() {
-    this.initDataAndChart()
+    this.username = sessionStorage.getItem('username')
+    // this.initDataAndChart()
   }
 }
 </script>
 
 <style lang="less" scoped>
 @import '../../assets/css/globalResume.css';
-
+.card-container-language {
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+  height: 550px;
+}
 .language-image-container {
   // padding-left: 10px;
   width: 100%;

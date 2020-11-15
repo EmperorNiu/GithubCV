@@ -20,6 +20,8 @@ import Compare from '../components/repos/Compare.vue'
 import CompareOther from '../components/repos/Other.vue'
 import Ability from '../components/repos/ability.vue'
 import Loading from '../views/Loading2.vue'
+import Tech from '../components/resume/Tech.vue'
+import ContributionDetail from '../components/resume/ContributionDetail.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -106,6 +108,14 @@ const routes = [
       {
         path: '/relationship',
         component: Relationship
+      },
+      {
+        path: '/tech',
+        component: Tech
+      },
+      {
+        path: '/contributionDetail',
+        component: ContributionDetail
       },
       {
         path: '/about',

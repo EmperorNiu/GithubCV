@@ -33,8 +33,7 @@ export default {
         var PrIssue = JSON.parse(sessionStorage.getItem('Compare'))
         this.drawChart(chart, PrIssue)
       } else {
-        var url =
-          'repos/compare/' + this.username
+        var url = 'repos/compare/' + this.username
         this.$http.get(url).then((result) => {
           var Compare = result.data
           sessionStorage.setItem('Compare', JSON.stringify(result.data))
@@ -45,6 +44,9 @@ export default {
   },
   mounted() {
     this.initData()
+  },
+  created() {
+    this.username = sessionStorage.getItem('username')
   }
 }
 </script>
