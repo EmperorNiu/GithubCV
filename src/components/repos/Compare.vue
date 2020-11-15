@@ -8,7 +8,7 @@ export default {
   // props: ['username', 'reposName'],
   data() {
     return {
-      username: 'hinesboy'
+      username: 'EmperorNiu'
     }
   },
   methods: {
@@ -17,7 +17,7 @@ export default {
         legend: {},
         tooltip: {},
         dataset: {
-          source: Compare.Response
+          source: Compare.himself
         },
         xAxis: { type: 'category' },
         yAxis: {},
@@ -33,7 +33,8 @@ export default {
         var PrIssue = JSON.parse(sessionStorage.getItem('Compare'))
         this.drawChart(chart, PrIssue)
       } else {
-        var url = 'repos/compare/' + this.username
+        var url = 'repos/compare_details/' + this.username
+        console.log(url)
         this.$http.get(url).then((result) => {
           var Compare = result.data
           sessionStorage.setItem('Compare', JSON.stringify(result.data))
@@ -46,7 +47,7 @@ export default {
     this.initData()
   },
   created() {
-    this.username = sessionStorage.getItem('username')
+    // this.username = sessionStorage.getItem('username')
   }
 }
 </script>

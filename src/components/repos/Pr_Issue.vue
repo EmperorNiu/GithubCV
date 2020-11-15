@@ -89,15 +89,15 @@ export default {
     },
     initData() {
       var chart = this.$echarts.init(this.$refs.fork_time_image)
-      if (sessionStorage.getItem('PrIssue')) {
-        var PrIssue = JSON.parse(sessionStorage.getItem('PrIssue'))
+      if (sessionStorage.getItem('repo_detail')) {
+        var PrIssue = JSON.parse(sessionStorage.getItem('repo_detail'))
         this.drawChart(chart, PrIssue)
       } else {
         var url =
-          'repos/pr_issue_commit/' + this.username + '/' + this.reposName
+          'repos/details/' + this.username + '/' + this.reposName
         this.$http.get(url).then((result) => {
           var PrIssue = result.data
-          sessionStorage.setItem('PrIssue', JSON.stringify(result.data))
+          sessionStorage.setItem('repo_detail', JSON.stringify(result.data))
           this.drawChart(chart, PrIssue)
         })
       }
