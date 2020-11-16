@@ -65,7 +65,7 @@ export default {
         this.drawChart(chart, forkData)
       } else {
         var url =
-          'repos/forkNum?username=' + this.username + '&repos=' + this.reposName
+          'repos/details/' + this.username + '/' + this.reposName
         this.$http.get(url).then((result) => {
           var forkData = result.data
           sessionStorage.setItem('repo_detail', JSON.stringify(result.data))
