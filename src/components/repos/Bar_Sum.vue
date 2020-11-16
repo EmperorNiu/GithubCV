@@ -5,7 +5,7 @@
 <script>
 export default {
   name: 'bar_sum',
-  // props: ['username', 'reposName'],
+  props: ['dataType'],
   data() {
     return {
       username: 'hinesboy',
@@ -13,7 +13,17 @@ export default {
     }
   },
   methods: {
-    drawChart(chart, forkData) {
+    drawChart(chart, reposData) {
+      var drawData = {}
+      if (this.dataType === 'fork') {
+        drawData = reposData.fork_sum
+      } else if (this.dataType === 'issue') {
+        drawData = reposData.issue_sum
+      } else if (this.dataType === 'pr') {
+        drawData = reposData.pr_sum
+      } else {
+        drawData = reposData.commit_sum
+      }
       var option = {
         title: {
           text: 'Trend of the total number of forks',
@@ -36,7 +46,7 @@ export default {
         xAxis: [
           {
             type: 'category',
-            data: forkData.date,
+            data: reposData.date,
             axisTick: {
               alignWithLabel: true
             }
@@ -52,7 +62,7 @@ export default {
             name: 'Fork 数量',
             type: 'bar',
             barWidth: '60%',
-            data: forkData.fork_sum
+            data: drawData
           }
         ]
       }

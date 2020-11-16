@@ -104,6 +104,7 @@ export default {
     }
   },
   mounted() {
+    this.username = sessionStorage.getItem('username')
     this.initData()
   }
 }

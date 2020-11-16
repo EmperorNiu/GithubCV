@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'bar',
+  name: 'compareOther',
   // props: ['username', 'reposName'],
   data() {
     return {
@@ -44,6 +44,7 @@ export default {
     }
   },
   mounted() {
+    this.username = sessionStorage.getItem('username')
     this.initData()
   }
 }

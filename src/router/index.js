@@ -19,9 +19,11 @@ import PrIssue from '../components/repos/Pr_Issue.vue'
 import Compare from '../components/repos/Compare.vue'
 import CompareOther from '../components/repos/Other.vue'
 import Ability from '../components/repos/ability.vue'
+import LanguageRank from '../components/repos/languageRank.vue'
 import Loading from '../views/Loading2.vue'
 import Tech from '../components/resume/Tech.vue'
 import ContributionDetail from '../components/resume/ContributionDetail.vue'
+import LanguagePop from '../views/LanguagePop.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -29,6 +31,11 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/languagePop',
+    name: 'LanguagePop',
+    component: LanguagePop
   },
   {
     path: '/loading',
@@ -64,6 +71,11 @@ const routes = [
     path: '/time',
     name: 'Time',
     component: TimeSeries
+  },
+  {
+    path: '/languageRank',
+    name: 'LanguageRank',
+    component: LanguageRank
   },
   {
     path: '/bar_sum',

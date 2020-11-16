@@ -5,7 +5,7 @@
 <script>
 export default {
   name: 'bar_origin',
-  // props: ['username', 'reposName'],
+  props: ['dataType'],
   data() {
     return {
       username: 'hinesboy',
@@ -13,7 +13,17 @@ export default {
     }
   },
   methods: {
-    drawChart(chart, forkData) {
+    drawChart(chart, reposData) {
+      var drawData = {}
+      if (this.dataType === 'fork') {
+        drawData = reposData.fork
+      } else if (this.dataType === 'issue') {
+        drawData = reposData.issue
+      } else if (this.dataType === 'pr') {
+        drawData = reposData.pr
+      } else {
+        drawData = reposData.commit
+      }
       var option = {
         title: {
           text: 'Changes in the number of forks in each month',
@@ -36,7 +46,7 @@ export default {
         xAxis: [
           {
             type: 'category',
-            data: forkData.date,
+            data: reposData.date,
             axisTick: {
               alignWithLabel: true
             }
@@ -52,7 +62,7 @@ export default {
             name: 'Fork 数量',
             type: 'bar',
             barWidth: '60%',
-            data: forkData.fork
+            data: drawData
           }
         ]
       }
@@ -76,6 +86,7 @@ export default {
   },
   mounted() {
     this.initData()
+    console.log(this.dataType)
   }
 }
 </script>

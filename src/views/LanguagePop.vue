@@ -8,23 +8,16 @@
           </el-page-header>
           <!-- 项目标题 -->
           <div class='repos-title'>
-            {{username}} Contributions
+            Language Popularity
           </div>
           <!-- 项目内容 -->
           <div class='repos-content'>
             <div class='item'>
               <el-row>
                 <el-col :span="16"><div class='item-title'>Comparsion of Contribution with others</div></el-col>
-                <el-col :span="8">
-                  <el-radio-group v-model="select" size="small" style="line-height: 60px;">
-                    <el-radio-button label="Myself"></el-radio-button>
-                    <el-radio-button label="Others"></el-radio-button>
-                  </el-radio-group>
-                </el-col>
               </el-row>
               <div class="item-content">
-                <div v-if="select === 'Myself'"><compare-me></compare-me></div>
-                <div v-else><compare-other></compare-other></div>
+                <div><language-rank></language-rank></div>
               </div>
             </div>
           </div>
@@ -36,20 +29,17 @@
 </template>
 
 <script>
-import Compare from '../repos/Compare.vue'
-import Other from '../repos/Other.vue'
+import languageRank from '../components/repos/languageRank.vue'
 
 export default {
   data() {
     return {
       username: '',
-      activitise: '0',
-      select: 'Myself'
+      activitise: '0'
     }
   },
   components: {
-    compareMe: Compare,
-    CompareOther: Other
+    languageRank: languageRank
   },
   methods: {
     goBack() {
@@ -83,13 +73,13 @@ export default {
 }
 .el-aside {
   // background-color: #D3DCE6;
-  background-image: url('../../assets/blue-snow.png');
+  background-image: url('../assets/blue-snow.png');
   color: #333;
   text-align: center;
   line-height: 200px;
 }
 .el-main {
-  background-image: url('../../assets/so-white.png');
+  background-image: url('../assets/so-white.png');
   // background-color: #E9EEF3;
   color: #333;
   text-align: center;
@@ -117,7 +107,7 @@ export default {
   line-height: 60px;
 }
 .item-content {
-  margin-left: 160px;
+  margin-left: 70px;
   margin-top: 10px;
 }
 </style>

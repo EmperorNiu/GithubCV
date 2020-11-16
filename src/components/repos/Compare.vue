@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'bar',
+  name: 'compare',
   // props: ['username', 'reposName'],
   data() {
     return {
@@ -34,7 +34,7 @@ export default {
         this.drawChart(chart, PrIssue)
       } else {
         var url = 'repos/compare_details/' + this.username
-        console.log(url)
+        // console.log(url)
         this.$http.get(url).then((result) => {
           var Compare = result.data
           sessionStorage.setItem('Compare', JSON.stringify(result.data))
@@ -47,7 +47,7 @@ export default {
     this.initData()
   },
   created() {
-    // this.username = sessionStorage.getItem('username')
+    this.username = sessionStorage.getItem('username')
   }
 }
 </script>

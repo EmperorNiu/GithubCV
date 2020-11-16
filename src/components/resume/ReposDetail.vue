@@ -12,7 +12,7 @@
           </div>
           <!-- 项目内容 -->
           <div class='repos-content'>
-            <el-tabs v-model="activeName" @tab-click="handleClick">
+            <el-tabs v-model="activeName">
               <el-tab-pane label="Overview" name="0">
                 <div class='item'>
                   <div class='item-title'>Overview:</div>
@@ -21,7 +21,23 @@
                   </div>
                 </div>
               </el-tab-pane>
-              <el-tab-pane label="Contribution" name="1">配置管理</el-tab-pane>
+              <el-tab-pane label="Contribution" name="1">
+                <div class='item'>
+                  <el-row>
+                    <el-col :span="16"><div class='item-title'>Comparsion of Contribution</div></el-col>
+                    <el-col :span="8">
+                      <el-radio-group v-model="select" size="small" style="line-height: 60px;">
+                        <el-radio-button label="Myself"></el-radio-button>
+                        <el-radio-button label="Others"></el-radio-button>
+                      </el-radio-group>
+                    </el-col>
+                  </el-row>
+                  <div class="item-content">
+                    <div v-if="select === 'Myself'"><compare-me></compare-me></div>
+                    <div v-else><compare-other></compare-other></div>
+                  </div>
+                </div>
+              </el-tab-pane>
               <el-tab-pane label="Fork" name="2">
                 <div class='item'>
                   <el-row>
@@ -34,13 +50,63 @@
                     </el-col>
                   </el-row>
                   <div class="item-content">
-                    <div v-if="fork_radio === 'Number'"><barOrigin></barOrigin></div>
-                    <div v-else><barSum></barSum></div>
+                    <div v-if="fork_radio === 'Number'"><barOrigin data-type='fork'></barOrigin></div>
+                    <div v-else><barSum data-type='fork'></barSum></div>
                   </div>
                 </div>
               </el-tab-pane>
-              <el-tab-pane label="PullRequest" name="3">定时任务补偿</el-tab-pane>
-              <el-tab-pane label="Code&Commit" name="4">
+              <el-tab-pane label="PullRequest" name="3">
+                <div class='item'>
+                  <el-row>
+                    <el-col :span="16"><div class='item-title'>Trend of the number of Forks:</div></el-col>
+                    <el-col :span="8">
+                      <el-radio-group v-model="fork_radio" size="small" style="line-height: 60px;">
+                        <el-radio-button label="Number"></el-radio-button>
+                        <el-radio-button label="Accumulated"></el-radio-button>
+                      </el-radio-group>
+                    </el-col>
+                  </el-row>
+                  <div class="item-content">
+                    <div v-if="fork_radio === 'Number'"><barOrigin data-type='pr'></barOrigin></div>
+                    <div v-else><barSum data-type='pr'></barSum></div>
+                  </div>
+                </div>
+              </el-tab-pane>
+              <el-tab-pane label="Commit" name="4">
+                <div class='item'>
+                  <el-row>
+                    <el-col :span="16"><div class='item-title'>Trend of the number of Forks:</div></el-col>
+                    <el-col :span="8">
+                      <el-radio-group v-model="fork_radio" size="small" style="line-height: 60px;">
+                        <el-radio-button label="Number"></el-radio-button>
+                        <el-radio-button label="Accumulated"></el-radio-button>
+                      </el-radio-group>
+                    </el-col>
+                  </el-row>
+                  <div class="item-content">
+                    <div v-if="fork_radio === 'Number'"><barOrigin data-type='commit'></barOrigin></div>
+                    <div v-else><barSum data-type='commit'></barSum></div>
+                  </div>
+                </div>
+              </el-tab-pane>
+              <el-tab-pane label="Issue" name="5">
+                <div class='item'>
+                  <el-row>
+                    <el-col :span="16"><div class='item-title'>Trend of the number of Forks:</div></el-col>
+                    <el-col :span="8">
+                      <el-radio-group v-model="fork_radio" size="small" style="line-height: 60px;">
+                        <el-radio-button label="Number"></el-radio-button>
+                        <el-radio-button label="Accumulated"></el-radio-button>
+                      </el-radio-group>
+                    </el-col>
+                  </el-row>
+                  <div class="item-content">
+                    <div v-if="fork_radio === 'Number'"><barOrigin data-type='issue'></barOrigin></div>
+                    <div v-else><barSum data-type='issue'></barSum></div>
+                  </div>
+                </div>
+              </el-tab-pane>
+              <el-tab-pane label="TimeSeries" name="6">
                 <div class='item'>
                   <div class='item-title'>Commit Numbers:</div>
                   <div class="item-content">
@@ -48,8 +114,7 @@
                   </div>
                 </div>
               </el-tab-pane>
-              <el-tab-pane label="Issue" name="5">定时任务补偿</el-tab-pane>
-              <el-tab-pane label="Collaboration" name="6">定时任务补偿</el-tab-pane>
+              <!-- <el-tab-pane label="Collaboration" name="7">定时任务补偿</el-tab-pane> -->
             </el-tabs>
           </div>
         </div>
@@ -64,11 +129,14 @@ import PrIssue from '../repos/Pr_Issue.vue'
 import BarOrigin from '../repos/Bar_Origin.vue'
 import BarSum from '../repos/Bar_Sum.vue'
 import TimeSeries from '../repos/TimeSeries.vue'
+import Compare from '../repos/Compare.vue'
+import Other from '../repos/Other.vue'
 export default {
   data() {
     return {
       username: '',
       repos: {},
+      select: 'Myself',
       reposIndex: 0,
       activitise: '0',
       fork_radio: 'Number'
@@ -78,7 +146,9 @@ export default {
     prIssue: PrIssue,
     barOrigin: BarOrigin,
     barSum: BarSum,
-    timeSeries: TimeSeries
+    timeSeries: TimeSeries,
+    compareMe: Compare,
+    CompareOther: Other
   },
   methods: {
     goBack() {

@@ -103,6 +103,7 @@ export default {
   },
   // 渲染页面
   mounted() {
+    this.username = sessionStorage.getItem('username')
     this.$refs.content.addEventListener('mousewheel', this.handleScroll, false)
     // this.initDataAndChart()
     // this.initDataAndChart()

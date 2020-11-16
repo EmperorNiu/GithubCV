@@ -9,6 +9,9 @@
         <el-button slot="append" icon="el-icon-right" @click="getResume"></el-button>
       </el-input>
       <div class="sub-title">Show yourself by achievements</div>
+      <div class="button-container">
+        <el-button @click="language">Language Popularity</el-button>
+      </div>
     </div>
     <div class="footer">
       <span>Contract us</span>
@@ -40,6 +43,11 @@ export default {
         query: {
           username: this.username
         }
+      })
+    },
+    language() {
+      this.$router.push({
+        path: '/languagePop'
       })
     }
   }
@@ -94,5 +102,9 @@ export default {
   position: absolute;
   bottom: 20px;
   color: #132433;
+}
+.button-container {
+  width: 100%;
+  text-align: center;
 }
 </style>
