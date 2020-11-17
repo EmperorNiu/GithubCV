@@ -16,6 +16,10 @@ export default {
       var option = {
         legend: {},
         tooltip: {},
+        grid: {
+          height: 400,
+          width: 700
+        },
         dataset: {
           source: CompareOther.other
         },
@@ -52,7 +56,7 @@ export default {
 
 <style lang="less" scoped>
 .fork {
-  height: 450px;
-  width: 700px;
+  height: 600px;
+  width: 1000px;
 }
 </style>

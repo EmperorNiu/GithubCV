@@ -7,8 +7,6 @@ export default {
   name: 'language_rank',
   data() {
     return {
-      username: 'hinesboy',
-      reposName: 'mavonEditor'
     }
   },
   methods: {

@@ -115,6 +115,7 @@ export default {
   },
   beforeDestroy() {
     sessionStorage.setItem('activePage', this.changeActive)
+    sessionStorage.setItem('activePath', this.menuActive)
   },
   methods: {
     handleSelect(key, keyPath) {

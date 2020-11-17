@@ -17,7 +17,7 @@
                 <div class='item'>
                   <div class='item-title'>Overview:</div>
                   <div class="item-content">
-                    <prIssue></prIssue>
+                    <prIssue :reposName="reposName"></prIssue>
                   </div>
                 </div>
               </el-tab-pane>
@@ -50,8 +50,8 @@
                     </el-col>
                   </el-row>
                   <div class="item-content">
-                    <div v-if="fork_radio === 'Number'"><barOrigin data-type='fork'></barOrigin></div>
-                    <div v-else><barSum data-type='fork'></barSum></div>
+                    <div v-if="fork_radio === 'Number'"><barOrigin data-type='fork' :reposName="reposName"></barOrigin></div>
+                    <div v-else><barSum data-type='fork' :reposName="reposName"></barSum></div>
                   </div>
                 </div>
               </el-tab-pane>
@@ -67,8 +67,8 @@
                     </el-col>
                   </el-row>
                   <div class="item-content">
-                    <div v-if="fork_radio === 'Number'"><barOrigin data-type='pr'></barOrigin></div>
-                    <div v-else><barSum data-type='pr'></barSum></div>
+                    <div v-if="fork_radio === 'Number'"><barOrigin data-type='pr' :reposName="reposName"></barOrigin></div>
+                    <div v-else><barSum data-type='pr' :reposName="reposName"></barSum></div>
                   </div>
                 </div>
               </el-tab-pane>
@@ -84,8 +84,8 @@
                     </el-col>
                   </el-row>
                   <div class="item-content">
-                    <div v-if="fork_radio === 'Number'"><barOrigin data-type='commit'></barOrigin></div>
-                    <div v-else><barSum data-type='commit'></barSum></div>
+                    <div v-if="fork_radio === 'Number'"><barOrigin data-type='commit' :reposName="reposName"></barOrigin></div>
+                    <div v-else><barSum data-type='commit' :reposName="reposName"></barSum></div>
                   </div>
                 </div>
               </el-tab-pane>
@@ -101,8 +101,8 @@
                     </el-col>
                   </el-row>
                   <div class="item-content">
-                    <div v-if="fork_radio === 'Number'"><barOrigin data-type='issue'></barOrigin></div>
-                    <div v-else><barSum data-type='issue'></barSum></div>
+                    <div v-if="fork_radio === 'Number'"><barOrigin data-type='issue' :reposName="reposName"></barOrigin></div>
+                    <div v-else><barSum data-type='issue' :reposName="reposName"></barSum></div>
                   </div>
                 </div>
               </el-tab-pane>
@@ -139,6 +139,7 @@ export default {
       select: 'Myself',
       reposIndex: 0,
       activitise: '0',
+      reposName: '',
       fork_radio: 'Number'
     }
   },
@@ -341,7 +342,8 @@ export default {
     var repos = JSON.parse(sessionStorage.getItem('repos'))
     repos = Object.values(repos)
     this.repos = repos[this.reposIndex]
-    console.log(this.repos)
+    this.reposName = this.repos.name
+    console.log(this.reposName)
   }
 }
 </script>
@@ -388,7 +390,7 @@ export default {
 }
 .item {
   width: 100%;
-  height: 530px;
+  height: 650px;
   display: flex;
   flex-direction: column;
 }
@@ -401,5 +403,6 @@ export default {
 .item-content {
   margin-left: 160px;
   margin-top: 10px;
+  height: 550px;
 }
 </style>

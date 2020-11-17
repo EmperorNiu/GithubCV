@@ -43,6 +43,10 @@ export default {
             saveAsImage: {}
           }
         },
+        grid: {
+          height: 390,
+          width: 700
+        },
         xAxis: {
           type: 'category',
           boundaryGap: false,
@@ -118,7 +122,7 @@ export default {
 
 <style lang="less" scoped>
 .fork {
-  height: 450px;
-  width: 700px;
+  height: 600px;
+  width: 1000px;
 }
 </style>

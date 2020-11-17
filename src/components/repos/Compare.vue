@@ -19,6 +19,10 @@ export default {
         dataset: {
           source: Compare.himself
         },
+        grid: {
+          height: 400,
+          width: 700
+        },
         xAxis: { type: 'category' },
         yAxis: {},
         // Declare several bar series, each will be mapped
@@ -54,7 +58,7 @@ export default {
 
 <style lang="less" scoped>
 .fork {
-  height: 450px;
-  width: 700px;
+  height: 600px;
+  width: 1000px;
 }
 </style>

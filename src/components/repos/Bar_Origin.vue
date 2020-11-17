@@ -41,7 +41,9 @@ export default {
           left: '3%',
           right: '4%',
           bottom: '3%',
-          containLabel: true
+          containLabel: true,
+          height: 400,
+          width: 700
         },
         xAxis: [
           {
@@ -86,14 +88,13 @@ export default {
   },
   mounted() {
     this.initData()
-    console.log(this.dataType)
   }
 }
 </script>
 
 <style lang="less" scoped>
 .fork {
-  height: 450px;
-  width: 700px;
+  height: 600px;
+  width: 1000px;
 }
 </style>

@@ -4,7 +4,7 @@
       <el-aside width='15%'></el-aside>
       <el-main>
         <div class='container'>
-          <el-page-header @back='goBack' content='Contribution Compare' title='back'>
+          <el-page-header @back='goBack' content='Language Popularity' title='back'>
           </el-page-header>
           <!-- 项目标题 -->
           <div class='repos-title'>
@@ -14,7 +14,7 @@
           <div class='repos-content'>
             <div class='item'>
               <el-row>
-                <el-col :span="16"><div class='item-title'>Comparsion of Contribution with others</div></el-col>
+                <el-col :span="16"><div class='item-title'>Programming Language Rank</div></el-col>
               </el-row>
               <div class="item-content">
                 <div><language-rank></language-rank></div>

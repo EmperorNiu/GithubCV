@@ -5,7 +5,7 @@
 <script>
 export default {
   name: 'pr_issue',
-  // props: ['username', 'reposName'],
+  // props: ['reposName'],
   data() {
     return {
       username: 'hinesboy',
@@ -35,6 +35,10 @@ export default {
         legend: {
           data: ['PR', 'Issue', 'Commit']
         },
+        grid: {
+          height: 500,
+          width: 860
+        },
         xAxis: [
           {
             type: 'category',
@@ -49,7 +53,7 @@ export default {
             type: 'value',
             name: 'Issue & PR',
             min: 0,
-            max: 40,
+            max: 120,
             interval: 10,
             axisLabel: {
               formatter: '{value} 次'
@@ -104,7 +108,8 @@ export default {
     }
   },
   mounted() {
-    this.username = sessionStorage.getItem('username')
+    // this.username = sessionStorage.getItem('username')
+    // console.log(this.reposName)
     this.initData()
   }
 }
@@ -112,7 +117,7 @@ export default {
 
 <style lang="less" scoped>
 .fork {
-  height: 450px;
-  width: 700px;
+  height: 600px;
+  width: 1000px;
 }
 </style>
